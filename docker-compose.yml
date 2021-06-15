@@ -24,6 +24,20 @@ services:
     networks:
       - bee-network
 
+  app:
+    container_name: bee-app
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./app:/usr/app
+      - /usr/app/node_modules
+    command: npm run start
+    networks:
+      - bee-network
+
   db:
     container_name: bee-db
     image: postgres:13.3-alpine

@@ -1,11 +1,12 @@
 import React from 'react';
 import { Button, Row, Col } from 'reactstrap';
 import moment from 'moment';
+import { useMutation } from '@apollo/client';
 import { Reminder } from '../../ts';
 import useReminder from '../../hooks/useReminder';
 import { toast } from 'react-toastify';
 import { DELETE_REMINDER_GQL } from '../../graphql/Reminders';
-import { useMutation } from '@apollo/client';
+import { ReactComponent as IconTrash } from '../../assets/icons/trash.svg';
 
 interface Props {
   reminder: Reminder;
@@ -41,7 +42,7 @@ const Item: React.FC<Props> = ({ reminder, showDate }) => {
       </Col>
       <Col xs="2" className="text-right">
         <Button type="button" size="sm" onClick={remove} disabled={loading}>
-          {loading ? 'Deleting...' : 'Delete'}
+          <IconTrash />
         </Button>
       </Col>
     </Row>
