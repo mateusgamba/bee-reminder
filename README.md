@@ -4,6 +4,8 @@ Bee Reminders is a platform focused on helping you set reminders and never forge
 
 Try out the [Demo](https://bee-reminders.netlify.app/).
 
+![](https://repository-images.githubusercontent.com/377284075/9e49af00-ce1b-11eb-8df8-8d1ab95bdd76)
+
 This project also aims to present some technologies and development methods. It was developed in an easy way, therefore, making updates more easily. You can find more details below.
 
 The project consists of two modules:
@@ -102,9 +104,9 @@ After installing and setting the application, click on the link to access:
 
 The deployment process is split into 2 parts. The first part, the API, is deploying to Heroku and the second, the APP, is deploying to Netlify.
 
-The deployment is using GitHub Actions, you can see its configuration on .github/workflows/ folder.
+The deployment is using GitHub Actions, you can see its configuration on `.github/workflows/` folder.
 
-The api-pipeline.yml file provides the deployment of the API to Heroku, whereas the app-pipeline file provides the deployment of the APP to Netlify. You can find more details about workflow in Configuring a workflow documentation.
+The `api-pipeline.yml` file provides the deployment of the API to Heroku, whereas the `app-pipeline.yml` file provides the deployment of the APP to Netlify. You can find more details about workflow in Configuring a workflow documentation.
 
 ## Get in touch!
 
