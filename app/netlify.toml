@@ -1,3 +1,0 @@
-[build.environment]
-  REACT_APP_API = "https://bee-reminders.herokuapp.com/graphql"
-  SKIP_PREFLIGHT_CHECK = true
