@@ -1,0 +1,10 @@
+type User {
+    id: ID!
+    email: String!
+}
+
+extend type Mutation {
+    createUser(
+        email: String! @rules(apply: ["required", "email", "max:255"])
+    ): User! @field(resolver: "UserMutator@create")
+}
