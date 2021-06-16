@@ -22,6 +22,7 @@ extend type Mutation {
     ): Reminder! @field(resolver: "ReminderMutator@create")
 
     deleteReminder(
-        id: ID! @rules(apply: ["required", "exists:App\\Models\\Reminder,id"])
+        id: [ID!]!
+            @rules(apply: ["required", "exists:App\\Models\\Reminder,id"])
     ): MessageResponse! @field(resolver: "ReminderMutator@delete")
 }

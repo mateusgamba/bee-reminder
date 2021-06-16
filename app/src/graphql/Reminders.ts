@@ -13,7 +13,7 @@ export const LIST_REMINDER_GQL = gql`
 `;
 
 export const DELETE_REMINDER_GQL = gql`
-  mutation deleteReminder($id: ID!) {
+  mutation deleteReminder($id: [ID!]!) {
     deleteReminder(id: $id) {
       message
     }

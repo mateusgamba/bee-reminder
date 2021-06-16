@@ -24,7 +24,7 @@ const Item: React.FC<Props> = ({ reminder, showDate }) => {
   const remove = () => {
     deleteReminder({
       variables: {
-        id: reminder.id,
+        id: [reminder.id],
       },
     });
   };

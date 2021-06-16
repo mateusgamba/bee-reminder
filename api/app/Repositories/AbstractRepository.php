@@ -69,7 +69,7 @@ abstract class AbstractRepository
      * @param int $id
      * @return bool
      */
-    public function destroy(int $id): bool
+    public function destroy(array $id): bool
     {
         $this->model->destroy($id);
         return true;
