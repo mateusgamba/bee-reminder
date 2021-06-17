@@ -2,11 +2,11 @@ import React from 'react';
 import { Button, Row, Col } from 'reactstrap';
 import moment from 'moment';
 import { useMutation } from '@apollo/client';
-import { Reminder } from '../../ts';
-import useReminder from '../../hooks/useReminder';
+import { Reminder } from '../../../ts';
+import useReminder from '../../../hooks/useReminder';
 import { toast } from 'react-toastify';
-import { DELETE_REMINDER_GQL } from '../../graphql/Reminders';
-import { ReactComponent as IconTrash } from '../../assets/icons/trash.svg';
+import { DELETE_REMINDER_GQL } from '../../../graphql/Reminders';
+import { ReactComponent as IconTrash } from '../../../assets/icons/trash.svg';
 
 interface Props {
   reminder: Reminder;

@@ -9,3 +9,8 @@ export interface ReminderInput {
   date: Date;
   user_id: number | null;
 }
+
+export interface ReminderFilterInput {
+  from?: Date;
+  to?: Date;
+}

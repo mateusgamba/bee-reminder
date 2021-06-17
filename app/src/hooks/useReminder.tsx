@@ -6,7 +6,11 @@ import moment from 'moment';
 
 interface ReminderFilterInputVariables {
   filter: {
-    user_id: string;
+    user_id: number;
+    date?: {
+      from?: Date;
+      to?: Date;
+    };
   };
 }
 
@@ -29,6 +33,7 @@ export const UseReminderProvider: React.FC = ({ children }) => {
     reminders: { data: Reminder[] };
   }>(LIST_REMINDER_GQL, {
     skip: !userId,
+    fetchPolicy: 'no-cache',
     variables: {
       filter: { user_id: userId, date: { from: moment().format('YYYY-M-D') } },
     },
