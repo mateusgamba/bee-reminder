@@ -14,3 +14,7 @@ export interface ReminderFilterInput {
   from?: Date;
   to?: Date;
 }
+
+export interface ReminderDeleteInput {
+  remindersId?: [];
+}

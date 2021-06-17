@@ -1,12 +1,16 @@
 import React, { useMemo } from 'react';
-import { Row, Col } from 'reactstrap';
+import { Row, Col, Button } from 'reactstrap';
 import moment from 'moment';
+import { useFormContext } from 'react-hook-form';
 import { Reminder } from '../../../ts';
 import Item from './Item';
 import useReminder from '../../../hooks/useReminder';
 
 const Initial: React.FC = () => {
   const { listReminder } = useReminder();
+
+  const { watch } = useFormContext();
+  const remindersId = watch('remindersId');
 
   const todayList = useMemo(
     () => listReminder.filter((item: Reminder) => moment(item.date).format('YYYY-M-D') === moment().format('YYYY-M-D')),
@@ -21,6 +25,12 @@ const Initial: React.FC = () => {
   return (
     <>
       <h4>Today</h4>
+
+      <div className="d-flex justify-content-end">
+        <Button color="link p-0 btn-link-delete" type="submit" disabled={remindersId.length ? false : true}>
+          Delete Items Selected {!!remindersId.length && `(${remindersId.length})`}
+        </Button>
+      </div>
       {todayList.length > 0 ? (
         <>
           {todayList.map((reminder: Reminder) => (

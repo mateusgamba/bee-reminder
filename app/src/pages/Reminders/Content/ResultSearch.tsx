@@ -1,5 +1,6 @@
 import React from 'react';
-import { Row, Col } from 'reactstrap';
+import { Row, Col, Button } from 'reactstrap';
+import { useFormContext } from 'react-hook-form';
 import { Reminder } from '../../../ts';
 import Item from './Item';
 import useReminder from '../../../hooks/useReminder';
@@ -7,9 +8,18 @@ import useReminder from '../../../hooks/useReminder';
 const ResultSearch: React.FC = () => {
   const { listReminder } = useReminder();
 
+  const { watch } = useFormContext();
+  const remindersId = watch('remindersId');
+
   return (
     <>
       <h4>Result Search</h4>
+
+      <div className="d-flex justify-content-end">
+        <Button color="link p-0 btn-link-delete" type="submit" disabled={remindersId.length ? false : true}>
+          Delete Items Selected {!!remindersId.length && `(${remindersId.length})`}
+        </Button>
+      </div>
       {listReminder.length > 0 ? (
         <>
           {listReminder.map((reminder: Reminder) => (

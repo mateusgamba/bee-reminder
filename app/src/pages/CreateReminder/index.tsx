@@ -21,7 +21,6 @@ const CreateReminderModal: React.FC<Props> = ({ toggle }) => {
   };
 
   const methods = useForm<ReminderInput>({
-    shouldUnregister: false,
     defaultValues: {
       description: '',
       date: '',
