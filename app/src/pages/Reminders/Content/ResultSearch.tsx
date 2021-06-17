@@ -20,7 +20,7 @@ const ResultSearch: React.FC = () => {
       ) : (
         <Row className="mt-3 border rounded p-3 bg-light no-gutters">
           <Col xs="12" className="d-flex align-items-center">
-            <p className="mb-0">You don&apos;t have any reminders for the next few days</p>
+            <p className="mb-0">You don&apos;t have any reminders</p>
           </Col>
         </Row>
       )}

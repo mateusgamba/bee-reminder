@@ -28,6 +28,6 @@ class ReminderQuery
      */
     public function all(?string $root, array $request): Builder
     {
-        return $this->service->all($request['filter'] ?? []);
+        return $this->service->all($request['filter'] ?? [])->orderBy('date');
     }
 }
