@@ -50,7 +50,7 @@ All of these requirements are provided by [docker-compose](https://docs.docker.c
 Clone the project from github.
 
 ```
-git clone https://github.com/mateusgamba/playground-test.git
+git clone https://github.com/mateusgamba/bee-reminder.git
 ```
 
 ### Setting up the environment
