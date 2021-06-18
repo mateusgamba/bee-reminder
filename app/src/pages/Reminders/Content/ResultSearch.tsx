@@ -8,13 +8,22 @@ import useReminder from '../../../hooks/useReminder';
 const ResultSearch: React.FC = () => {
   const { listReminder } = useReminder();
 
-  const { watch } = useFormContext();
+  const { watch, setValue } = useFormContext();
   const remindersId = watch('remindersId');
+
+  const selectAll = () => {
+    const values = remindersId.length ? [] : listReminder.map((item: Reminder) => Number(item.id));
+    setValue('remindersId', values);
+  };
 
   return (
     <>
       <h4>Result Search</h4>
       <div className="d-flex justify-content-end">
+        <Button color="link p-0 btn-link-delete mr-3" type="button" onClick={selectAll}>
+          Select All
+        </Button>
+
         <Button color="link p-0 btn-link-delete" type="submit" disabled={remindersId.length ? false : true}>
           Delete selected items{!!remindersId.length && ` (${remindersId.length})`}
         </Button>
