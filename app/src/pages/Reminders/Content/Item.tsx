@@ -1,12 +1,9 @@
 import React from 'react';
 import { Button, Row, Col } from 'reactstrap';
 import moment from 'moment';
-import { useMutation } from '@apollo/client';
-import { toast } from 'react-toastify';
 import { useFormContext } from 'react-hook-form';
 import { Reminder } from '../../../ts';
 import useReminder from '../../../hooks/useReminder';
-import { DELETE_REMINDER_GQL } from '../../../graphql/Reminders';
 import { ReactComponent as IconTrash } from '../../../assets/icons/trash.svg';
 
 interface Props {
@@ -15,20 +12,13 @@ interface Props {
 }
 
 const Item: React.FC<Props> = ({ reminder, showDate }) => {
-  const { fetchListReminder } = useReminder();
+  const { deleteReminder, deleteReminderLoading } = useReminder();
 
   const { getValues, setValue } = useFormContext();
 
-  const [deleteReminder, { loading }] = useMutation(DELETE_REMINDER_GQL, {
-    onCompleted: () => [toast.success('Successfully deleted'), fetchListReminder()],
-    onError: () => toast.error('An error has occurred.'),
-  });
-
   const remove = () => {
     deleteReminder({
-      variables: {
-        id: [reminder.id],
-      },
+      variables: { id: [Number(reminder.id)] },
     });
   };
 
@@ -56,12 +46,11 @@ const Item: React.FC<Props> = ({ reminder, showDate }) => {
               </div>
             </div>
           )}
-
           <p className="mb-0">{reminder.description}</p>
         </div>
       </Col>
       <Col xs="12" sm="2" className="d-flex align-items-center justify-content-end mt-3 mt-sm-0">
-        <Button type="button" size="sm" onClick={remove} disabled={loading}>
+        <Button type="button" size="sm" onClick={remove} disabled={deleteReminderLoading}>
           <IconTrash />
         </Button>
         <input
@@ -69,7 +58,7 @@ const Item: React.FC<Props> = ({ reminder, showDate }) => {
           name="item"
           className="item-checkbox ml-3"
           onChange={() => handleReminderCheckbox(reminder)}
-          defaultChecked={getValues('remindersId').includes(Number(reminder.id))}
+          checked={getValues('remindersId').includes(Number(reminder.id))}
         />
       </Col>
     </Row>

@@ -16,5 +16,5 @@ export interface ReminderFilterInput {
 }
 
 export interface ReminderDeleteInput {
-  remindersId?: [];
+  remindersId: number[];
 }

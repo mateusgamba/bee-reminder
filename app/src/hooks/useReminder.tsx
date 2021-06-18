@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useContext, useState, useMemo } from 'react';
-import { useQuery } from '@apollo/client';
-import { LIST_REMINDER_GQL } from '../graphql/Reminders';
-import { Reminder } from '../ts';
 import moment from 'moment';
+import { useQuery, useMutation } from '@apollo/client';
+import { toast } from 'react-toastify';
+import { DELETE_REMINDER_GQL, LIST_REMINDER_GQL } from '../graphql/Reminders';
+import { Reminder } from '../ts';
 
 interface ReminderFilterInputVariables {
   filter: {
@@ -14,10 +16,16 @@ interface ReminderFilterInputVariables {
   };
 }
 
+interface ReminderDeleteIdVariables {
+  variables: { id: number[] };
+}
+
 interface ReminderContextData {
   userId: number | null;
   setUserId(userId: number | null): void;
   fetchListReminder(variables?: ReminderFilterInputVariables): void;
+  deleteReminder(variables: ReminderDeleteIdVariables): void;
+  deleteReminderLoading: boolean;
   listReminder: Reminder[];
 }
 
@@ -41,11 +49,18 @@ export const UseReminderProvider: React.FC = ({ children }) => {
 
   const listReminder = useMemo(() => dataListReminder?.reminders?.data ?? [], [dataListReminder?.reminders?.data]);
 
+  const [deleteReminder, { loading: deleteReminderLoading }] = useMutation(DELETE_REMINDER_GQL, {
+    onCompleted: () => [toast.success('Successfully deleted'), fetchListReminder()],
+    onError: () => toast.error('An error has occurred.'),
+  });
+
   const contextValues: ReminderContextData = {
     userId,
     setUserId,
     fetchListReminder,
     listReminder,
+    deleteReminder,
+    deleteReminderLoading,
   };
   return <ReminderContext.Provider value={contextValues}>{children}</ReminderContext.Provider>;
 };
