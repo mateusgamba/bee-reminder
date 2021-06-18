@@ -16,7 +16,7 @@ const COMPONENTS = { Initial, ResultSearch };
 const Reminders: React.FC = () => {
   const history = useHistory();
 
-  const { userId, fetchListReminder, deleteReminder } = useReminder();
+  const { userId, fetchListReminder, deleteReminder, listReminder } = useReminder();
 
   if (!userId) {
     history.push('/');
@@ -55,6 +55,8 @@ const Reminders: React.FC = () => {
         },
       });
   }, [location.search]);
+
+  useEffect(() => setValue('remindersId', []), [listReminder]);
 
   return (
     <>
