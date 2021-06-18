@@ -28,7 +28,7 @@ const Initial: React.FC = () => {
 
       <div className="d-flex justify-content-end">
         <Button color="link p-0 btn-link-delete" type="submit" disabled={remindersId.length ? false : true}>
-          Delete Items Selected {!!remindersId.length && `(${remindersId.length})`}
+          Delete selected items{!!remindersId.length && ` (${remindersId.length})`}
         </Button>
       </div>
       {todayList.length > 0 ? (

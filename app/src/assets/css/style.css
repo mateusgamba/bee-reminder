@@ -78,6 +78,14 @@ h6 {
   transition: 0.3s;
 }
 
+.no-link,
+.no-link:hover,
+.no-link:focus,
+.no-link:active,
+.no-link:visited {
+  text-decoration: none;
+}
+
 h2 {
   font-size: 56px;
   line-height: 64px;
@@ -129,5 +137,11 @@ h5 {
 
   h4 {
     line-height: 40px;
+  }
+}
+
+@media (max-width: 576px) {
+  h4 {
+    font-size: 29px;
   }
 }

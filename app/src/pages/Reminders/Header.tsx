@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { Row, Col, Button } from 'reactstrap';
 import useReminder from '../../hooks/useReminder';
 import CreateReminder from '../CreateReminder';
@@ -24,7 +24,9 @@ const Header: React.FC = () => {
       <div className="w-100">
         <Row noGutters>
           <Col className="d-flex justify-content-center justify-content-lg-start col-12 col-lg-6 pb-3 py-lg-0">
-            <h3 className="mb-0">Bee Reminder</h3>
+            <Link to="/reminders" className="no-link">
+              <h3 className="mb-0">Bee Reminder</h3>
+            </Link>
           </Col>
           <Col className="d-flex justify-content-center justify-content-lg-end col-12 col-lg-6 align-items-center pb-3 pb-lg-0">
             <div>

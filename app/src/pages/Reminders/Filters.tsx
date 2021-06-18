@@ -19,7 +19,7 @@ const Filters: React.FC = () => {
   return (
     <Form onSubmit={onSubmit} noValidate>
       <Row inline="true" className="mb-3">
-        <Col md={3}>
+        <Col lg="3" md="4">
           <FormGroup className="mb-0">
             <Label for="from" className="mb-0">
               Start
@@ -27,7 +27,7 @@ const Filters: React.FC = () => {
             <CustomInput {...register('from')} type="date" id="from" />
           </FormGroup>
         </Col>
-        <Col md={3}>
+        <Col lg="3" md="4" className="my-3 my-md-0">
           <FormGroup className="mb-0">
             <Label for="to" className="mb-0">
               End
@@ -35,9 +35,9 @@ const Filters: React.FC = () => {
             <CustomInput {...register('to')} type="date" id="to" />
           </FormGroup>
         </Col>
-        <Col md={3} className="d-flex align-items-end">
+        <Col lg="6" md="4" className="d-flex align-items-end px-3 px-md-0 px-lg-3">
           <Button>Search</Button>
-          <Link to="/reminders" className="ml-3 btn btn-link">
+          <Link to="/reminders" className="ml-2 ml-lg-3 btn btn-link">
             Clear Filter
           </Link>
         </Col>

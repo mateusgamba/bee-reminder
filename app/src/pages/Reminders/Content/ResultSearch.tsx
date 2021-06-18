@@ -14,10 +14,9 @@ const ResultSearch: React.FC = () => {
   return (
     <>
       <h4>Result Search</h4>
-
       <div className="d-flex justify-content-end">
         <Button color="link p-0 btn-link-delete" type="submit" disabled={remindersId.length ? false : true}>
-          Delete Items Selected {!!remindersId.length && `(${remindersId.length})`}
+          Delete selected items{!!remindersId.length && ` (${remindersId.length})`}
         </Button>
       </div>
       {listReminder.length > 0 ? (

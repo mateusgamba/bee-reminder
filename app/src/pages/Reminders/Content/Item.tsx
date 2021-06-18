@@ -47,16 +47,20 @@ const Item: React.FC<Props> = ({ reminder, showDate }) => {
 
   return (
     <Row className="mt-3 border rounded p-3 bg-light no-gutters">
-      <Col xs="10" className="d-flex align-items-center">
-        {showDate && (
-          <div className="badge badge-primary badge-bee text-wrap mr-3">
-            {moment(reminder.date).format('MMMM Do YYYY')}
-          </div>
-        )}
+      <Col xs="12" sm="10" className="d-flex align-items-center">
+        <div className="d-flex flex-column flex-sm-row justify-content-start">
+          {showDate && (
+            <div>
+              <div className="badge badge-primary badge-bee text-wrap mr-3 mb-2 mb-sm-0">
+                {moment(reminder.date).format('MMMM Do YYYY')}
+              </div>
+            </div>
+          )}
 
-        <p className="mb-0">{reminder.description}</p>
+          <p className="mb-0">{reminder.description}</p>
+        </div>
       </Col>
-      <Col xs="2" className="text-right d-flex align-items-center justify-content-end">
+      <Col xs="12" sm="2" className="d-flex align-items-center justify-content-end mt-3 mt-sm-0">
         <Button type="button" size="sm" onClick={remove} disabled={loading}>
           <IconTrash />
         </Button>
