@@ -59,6 +59,7 @@ $app->singleton(
 
 $app->configure('app');
 $app->configure('cors');
+$app->configure('mail');
 
 /*
 |--------------------------------------------------------------------------
@@ -97,7 +98,20 @@ $app->register(Nuwave\Lighthouse\Pagination\PaginationServiceProvider::class);
 $app->register(Nuwave\Lighthouse\Validation\ValidationServiceProvider::class);
 $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
+$app->register(Illuminate\Mail\MailServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
+
+/*
+|--------------------------------------------------------------------------
+| Class Aliases
+|--------------------------------------------------------------------------
+|
+*/
+$app->alias('mailer', Illuminate\Mail\Mailer::class);
+$app->alias('mailer', Illuminate\Contracts\Mail\Mailer::class);
+$app->alias('mailer', Illuminate\Contracts\Mail\MailQueue::class);
+$app->alias('mail.manager', Illuminate\Mail\MailManager::class);
+$app->alias('mail.manager', Illuminate\Contracts\Mail\Factory::class);
 
 /*
 |--------------------------------------------------------------------------
