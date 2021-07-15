@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Route Configuration
@@ -140,9 +139,11 @@ return [
     */
 
     'security' => [
-        'max_query_complexity' => \GraphQL\Validator\Rules\QueryComplexity::DISABLED,
+        'max_query_complexity' =>
+            \GraphQL\Validator\Rules\QueryComplexity::DISABLED,
         'max_query_depth' => \GraphQL\Validator\Rules\QueryDepth::DISABLED,
-        'disable_introspection' => \GraphQL\Validator\Rules\DisableIntrospection::DISABLED,
+        'disable_introspection' =>
+            \GraphQL\Validator\Rules\DisableIntrospection::DISABLED,
     ],
 
     /*
@@ -197,7 +198,11 @@ return [
     |
     */
 
-    'debug' => env('LIGHTHOUSE_DEBUG', \GraphQL\Error\DebugFlag::INCLUDE_DEBUG_MESSAGE | \GraphQL\Error\DebugFlag::INCLUDE_TRACE),
+    'debug' => env(
+        'LIGHTHOUSE_DEBUG',
+        \GraphQL\Error\DebugFlag::INCLUDE_DEBUG_MESSAGE |
+            \GraphQL\Error\DebugFlag::INCLUDE_TRACE
+    ),
 
     /*
     |--------------------------------------------------------------------------
@@ -315,7 +320,10 @@ return [
         /*
          * Determines the queue to use for broadcasting queue jobs.
          */
-        'broadcasts_queue_name' => env('LIGHTHOUSE_BROADCASTS_QUEUE_NAME', null),
+        'broadcasts_queue_name' => env(
+            'LIGHTHOUSE_BROADCASTS_QUEUE_NAME',
+            null
+        ),
 
         /*
          * Default subscription storage.
@@ -347,13 +355,20 @@ return [
             ],
             'pusher' => [
                 'driver' => 'pusher',
-                'routes' => \Nuwave\Lighthouse\Subscriptions\SubscriptionRouter::class.'@pusher',
+                'routes' =>
+                    \Nuwave\Lighthouse\Subscriptions\SubscriptionRouter::class .
+                    '@pusher',
                 'connection' => 'pusher',
             ],
             'echo' => [
                 'driver' => 'echo',
-                'connection' => env('LIGHTHOUSE_SUBSCRIPTION_REDIS_CONNECTION', 'default'),
-                'routes' => \Nuwave\Lighthouse\Subscriptions\SubscriptionRouter::class.'@echoRoutes',
+                'connection' => env(
+                    'LIGHTHOUSE_SUBSCRIPTION_REDIS_CONNECTION',
+                    'default'
+                ),
+                'routes' =>
+                    \Nuwave\Lighthouse\Subscriptions\SubscriptionRouter::class .
+                    '@echoRoutes',
             ],
         ],
 
@@ -411,5 +426,4 @@ return [
          */
         'entities_resolver_namespace' => 'App\\GraphQL\\Entities',
     ],
-
 ];

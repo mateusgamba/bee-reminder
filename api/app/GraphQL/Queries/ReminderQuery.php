@@ -5,6 +5,7 @@ namespace App\GraphQL\Queries;
 use App\Models\Reminder;
 use App\Services\ReminderService;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class ReminderQuery
 {
@@ -28,6 +29,7 @@ class ReminderQuery
      */
     public function all(?string $root, array $request): Builder
     {
+        \Log::info(Auth::user()->id);
         return $this->service->all($request['filter'] ?? [])->orderBy('date');
     }
 }
