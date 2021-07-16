@@ -1,5 +1,6 @@
 type User {
     id: ID!
+    name: String
     email: String!
 }
 
@@ -7,4 +8,8 @@ extend type Mutation {
     createUser(
         email: String! @rules(apply: ["required", "email", "max:255"])
     ): User! @field(resolver: "UserMutator@create")
+}
+
+extend type Query @guard {
+    me: User! @field(resolver: "UserQuery@me")
 }

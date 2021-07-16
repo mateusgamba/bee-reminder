@@ -18,11 +18,6 @@ class AuthMutator
     public function login(?string $root, array $request): array
     {
         $request = Arr::except($request, 'directive');
-        // if (!Auth::guard('api')->attempt($request)) {
-        //     \Log::info("entrou1.1");
-        //     return $this->unauthorized();
-        //     \Log::info("entrou1.2");
-        // }
         $request['username'] = $request['email'];
         unset($request['email']);
 
