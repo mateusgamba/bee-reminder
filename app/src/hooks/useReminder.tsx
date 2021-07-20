@@ -31,15 +31,16 @@ interface ReminderContextData {
 export const ReminderContext = React.createContext({});
 
 export const UseReminderProvider: React.FC = ({ children }) => {
-  const [userId, setUserId] = useState<number | null>(() => {
-    const id = 1; //sessionStorage.getItem('userId');
-    return !!id ? Number(id) : null;
-  });
-
+  //   const [userId, setUserId] = useState<number | null>(() => {
+  //     const id = sessionStorage.getItem('userId');
+  //     return !!id ? Number(id) : null;
+  //   });
+  const [userId, setUserId] = useState<number | null>(2);
+  console.log(userId);
   const { data: dataListReminder, refetch: fetchListReminder } = useQuery<{
     reminders: { data: Reminder[] };
   }>(LIST_REMINDER_GQL, {
-    skip: !userId,
+    // skip: !userId,
     fetchPolicy: 'no-cache',
     variables: {
       filter: { user_id: userId, date: { from: moment().format('YYYY-M-D') } },

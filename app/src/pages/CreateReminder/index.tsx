@@ -52,7 +52,11 @@ const CreateReminderModal: React.FC<Props> = ({ toggle }) => {
   });
 
   const onSubmit = handleSubmit((variables) => {
-    createReminder({ variables });
+    const data = {
+      ...variables,
+      user_id: 2,
+    };
+    createReminder({ variables: data });
   });
 
   return (

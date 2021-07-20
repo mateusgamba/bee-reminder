@@ -2,11 +2,14 @@ import React, { useMemo } from 'react';
 import { Row, Col, Button } from 'reactstrap';
 import moment from 'moment';
 import { useFormContext } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { Reminder } from '../../../ts';
 import Item from './Item';
 import useReminder from '../../../hooks/useReminder';
 
 const Initial: React.FC = () => {
+  const { t } = useTranslation();
+
   const { listReminder } = useReminder();
 
   const { watch } = useFormContext();
@@ -27,7 +30,7 @@ const Initial: React.FC = () => {
 
   return (
     <>
-      <h4>Today</h4>
+      <h4>{t('Today')}</h4>
 
       <div className="d-flex justify-content-end">
         <Button color="link p-0 btn-link-delete" type="submit" disabled={remindersId.length ? false : true}>
