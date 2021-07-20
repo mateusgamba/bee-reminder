@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Container, Form } from 'reactstrap';
 import { useForm, FormProvider } from 'react-hook-form';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import Initial from './Content/Initial';
 import ResultSearch from './Content/ResultSearch';
@@ -14,13 +14,7 @@ import './style.css';
 const COMPONENTS = { Initial, ResultSearch };
 
 const Reminders: React.FC = () => {
-  const history = useHistory();
-
   const { userId, fetchListReminder, deleteReminder, listReminder } = useReminder();
-
-  if (!userId) {
-    history.push('/');
-  }
 
   const methods = useForm<ReminderDeleteInput>({
     defaultValues: {

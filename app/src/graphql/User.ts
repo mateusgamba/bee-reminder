@@ -8,3 +8,13 @@ export const CREATE_USER_GQL = gql`
     }
   }
 `;
+
+export const GET_CURRENT_USER = gql`
+  query currentUser {
+    me {
+      id
+      email
+      name
+    }
+  }
+`;

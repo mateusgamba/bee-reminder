@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useContext, useState, useMemo } from 'react';
 import moment from 'moment';
 import { useQuery, useMutation } from '@apollo/client';
@@ -33,7 +32,7 @@ export const ReminderContext = React.createContext({});
 
 export const UseReminderProvider: React.FC = ({ children }) => {
   const [userId, setUserId] = useState<number | null>(() => {
-    const id = sessionStorage.getItem('userId');
+    const id = 1; //sessionStorage.getItem('userId');
     return !!id ? Number(id) : null;
   });
 

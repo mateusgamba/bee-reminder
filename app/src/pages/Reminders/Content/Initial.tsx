@@ -13,12 +13,15 @@ const Initial: React.FC = () => {
   const remindersId = watch('remindersId');
 
   const todayList = useMemo(
-    () => listReminder.filter((item: Reminder) => moment(item.date).format('YYYY-M-D') === moment().format('YYYY-M-D')),
+    () =>
+      listReminder
+        ? listReminder.filter((item: Reminder) => moment(item.date).format('YYYY-M-D') === moment().format('YYYY-M-D'))
+        : [],
     [listReminder],
   );
 
   const nextDaysList = useMemo(
-    () => listReminder.filter((item: Reminder) => moment(item.date).isAfter(moment())),
+    () => (listReminder ? listReminder.filter((item: Reminder) => moment(item.date).isAfter(moment())) : []),
     [listReminder],
   );
 
