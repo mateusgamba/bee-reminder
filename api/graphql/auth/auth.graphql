@@ -7,6 +7,7 @@ type Auth {
 
 extend type Mutation {
     login(email: String!, password: String!): Auth!
+        @validator
         @field(resolver: "AuthMutator@login")
 
     refreshToken(refresh_token: String!): Auth!

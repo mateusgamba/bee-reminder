@@ -1,9 +1,9 @@
 import React from 'react';
 import { Row, Col, Button } from 'reactstrap';
 import { useFormContext } from 'react-hook-form';
-import { Reminder } from '../../../ts';
+import { Reminder } from '../../../../ts';
 import Item from './Item';
-import useReminder from '../../../hooks/useReminder';
+import useReminder from '../../../../hooks/useReminder';
 
 const ResultSearch: React.FC = () => {
   const { listReminder } = useReminder();

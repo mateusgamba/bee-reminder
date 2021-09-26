@@ -1,41 +1,39 @@
 import React, { useContext, useState } from 'react';
-import Cookie from 'js-cookie';
 import { AuthenticationData } from '../ts';
+import { getCookie, setCookie, removeCookie } from '../utils/setAuthTokens';
 
 interface AuthContextData {
   setAuthorization(data: AuthenticationData): void;
-  validated: AuthenticationData | undefined;
   clearAuthorization(): void;
   authenticated: AuthenticationData | undefined;
 }
 
 interface Props {
   children: JSX.Element | JSX.Element[];
-  authenticated?: AuthenticationData;
 }
 
 export const AuthContext = React.createContext({});
 
-export const UseAuthProvider: React.FC<Props> = ({ children, authenticated }) => {
-  const [validated, setValidated] = useState<AuthenticationData | undefined>(authenticated);
+export const UseAuthProvider: React.FC<Props> = ({ children }) => {
+  const authentication = getCookie('bee-authorization');
+  const [authenticated, setAuthenticated] = useState<AuthenticationData | undefined>(authentication);
 
   const setAuthorization = (accessData: AuthenticationData) => {
-    Cookie.set('bee-authorization', JSON.stringify(accessData));
-    setValidated(accessData);
+    setCookie('bee-authorization', accessData);
+    setAuthenticated(accessData);
   };
 
   const clearAuthorization = () => {
-    setValidated(undefined);
-    Cookie.remove('bee-authorization');
+    setAuthenticated(undefined);
+    removeCookie('bee-authorization');
   };
 
   return (
     <AuthContext.Provider
       value={{
         setAuthorization,
-        validated,
-        clearAuthorization,
         authenticated,
+        clearAuthorization,
       }}
     >
       {children}

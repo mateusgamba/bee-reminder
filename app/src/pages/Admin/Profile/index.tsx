@@ -1,5 +1,5 @@
 import React from 'react';
 
 export default function Profile(): JSX.Element {
-  return <div>Logado</div>;
+  return <div>Profile</div>;
 }

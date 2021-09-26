@@ -3,9 +3,9 @@ import { Row, Col, Button } from 'reactstrap';
 import moment from 'moment';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Reminder } from '../../../ts';
+import { Reminder } from '../../../../ts';
 import Item from './Item';
-import useReminder from '../../../hooks/useReminder';
+import useReminder from '../../../../hooks/useReminder';
 
 const Initial: React.FC = () => {
   const { t } = useTranslation();

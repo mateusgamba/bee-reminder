@@ -3,10 +3,10 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, La
 import { useForm } from 'react-hook-form';
 import { useMutation, ApolloError } from '@apollo/client';
 import { toast } from 'react-toastify';
-import useReminder from '../../hooks/useReminder';
-import { CREATE_REMINDER_GQL } from '../../graphql/Reminders';
-import CustomInput from '../../components/CustomInput';
-import { ReminderInput } from '../../ts';
+import useReminder from '../../../hooks/useReminder';
+import { CREATE_REMINDER_GQL } from '../../../graphql/Reminders';
+import CustomInput from '../../../components/CustomInput';
+import { ReminderInput } from '../../../ts';
 
 interface Props {
   toggle: () => void;

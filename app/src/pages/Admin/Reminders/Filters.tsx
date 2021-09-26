@@ -3,8 +3,8 @@ import { useForm } from 'react-hook-form';
 import { useHistory, Link } from 'react-router-dom';
 import { Row, Col, FormGroup, Label, Button, Form } from 'reactstrap';
 import queryString from 'query-string';
-import { ReminderFilterInput } from '../../ts';
-import CustomInput from '../../components/CustomInput';
+import { ReminderFilterInput } from '../../../ts';
+import CustomInput from '../../../components/CustomInput';
 
 const Filters: React.FC = () => {
   const history = useHistory();

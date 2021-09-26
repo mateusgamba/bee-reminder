@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { Row, Col, Button } from 'reactstrap';
-import useReminder from '../../hooks/useReminder';
+import useReminder from '../../../hooks/useReminder';
 import CreateReminder from '../CreateReminder';
+import useAuth from '../../../hooks/useAuth';
 
 const Header: React.FC = () => {
   const [modal, setModal] = useState<boolean>(false);
+  const { clearAuthorization } = useAuth();
 
   const { setUserId } = useReminder();
 
   const history = useHistory();
 
   const back = () => {
-    sessionStorage.removeItem('userId');
     setUserId(null);
+    clearAuthorization();
     history.push('/');
   };
 

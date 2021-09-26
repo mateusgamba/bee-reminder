@@ -5,10 +5,10 @@ import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import Initial from './Content/Initial';
 import ResultSearch from './Content/ResultSearch';
-import useReminder from '../../hooks/useReminder';
+import useReminder from '../../../hooks/useReminder';
 import Header from './Header';
 import Filters from './Filters';
-import { ReminderDeleteInput } from '../../ts';
+import { ReminderDeleteInput } from '../../../ts';
 import './style.css';
 
 const COMPONENTS = { Initial, ResultSearch };
