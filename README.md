@@ -112,4 +112,4 @@ The `api-pipeline.yml` file provides the deployment of the API to Heroku, wherea
 
 You can contact me directly on my Email (mateusgamba@gmail.com) or via Linkedin ([https://www.linkedin.com/in/mateusgamba/](https://www.linkedin.com/in/mateusgamba/)).
 
-Kind regards.
+Kind regards
