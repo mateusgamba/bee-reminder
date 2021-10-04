@@ -5,6 +5,7 @@ namespace App\GraphQL\Mutations;
 use App\Models\Reminder;
 use App\Services\ReminderService;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 
 class ReminderMutator
 {
@@ -28,8 +29,9 @@ class ReminderMutator
      */
     public function create(?string $root, array $request): Reminder
     {
-        $request = Arr::except($request, 'directive');
-        return $this->service->create($request);
+        $reminder = Arr::except($request, 'directive');
+        $reminder['user_id'] = Auth::user()->id;
+        return $this->service->create($reminder);
     }
 
     /**
