@@ -7,7 +7,6 @@ export interface Reminder {
 export interface ReminderInput {
   description: string;
   date: Date;
-  user_id: number | null;
 }
 
 export interface ReminderFilterInput {

@@ -29,7 +29,8 @@ class ReminderQuery
      */
     public function all(?string $root, array $request): Builder
     {
-        \Log::info(Auth::user()->id);
-        return $this->service->all($request['filter'] ?? [])->orderBy('date');
+        $filter = $request['filter'];
+        $filter['user_id'] = Auth::user()->id;
+        return $this->service->all($filter)->orderBy('date');
     }
 }

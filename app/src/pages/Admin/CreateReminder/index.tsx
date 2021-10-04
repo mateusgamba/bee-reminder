@@ -13,7 +13,7 @@ interface Props {
 }
 
 const CreateReminderModal: React.FC<Props> = ({ toggle }) => {
-  const { userId, fetchListReminder } = useReminder();
+  const { fetchListReminder } = useReminder();
 
   const onClose = () => {
     methods.reset();
@@ -24,7 +24,6 @@ const CreateReminderModal: React.FC<Props> = ({ toggle }) => {
     defaultValues: {
       description: '',
       date: '',
-      user_id: userId,
     },
   });
 
@@ -54,7 +53,6 @@ const CreateReminderModal: React.FC<Props> = ({ toggle }) => {
   const onSubmit = handleSubmit((variables) => {
     const data = {
       ...variables,
-      user_id: 2,
     };
     createReminder({ variables: data });
   });

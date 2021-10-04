@@ -14,7 +14,7 @@ import './style.css';
 const COMPONENTS = { Initial, ResultSearch };
 
 const Reminders: React.FC = () => {
-  const { userId, fetchListReminder, deleteReminder, listReminder } = useReminder();
+  const { fetchListReminder, deleteReminder, listReminder } = useReminder();
 
   const methods = useForm<ReminderDeleteInput>({
     defaultValues: {
@@ -38,16 +38,14 @@ const Reminders: React.FC = () => {
     const parseDate = queryString.parse(location.search);
     const date = JSON.parse(JSON.stringify(parseDate));
     setValue('remindersId', []);
-    userId &&
-      fetchListReminder({
-        filter: {
-          date: {
-            ...(date.from && { from: date.from }),
-            ...(date.to && { to: date.to }),
-          },
-          user_id: userId,
+    fetchListReminder({
+      filter: {
+        date: {
+          ...(date.from && { from: date.from }),
+          ...(date.to && { to: date.to }),
         },
-      });
+      },
+    });
   }, [location.search]);
 
   useEffect(() => setValue('remindersId', []), [listReminder]);
