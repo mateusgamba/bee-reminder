@@ -4,7 +4,6 @@ import { ApolloClient, createHttpLink, InMemoryCache, ApolloProvider } from '@ap
 import { setContext } from '@apollo/client/link/context';
 import App from './App';
 import { getCookie } from './utils/setAuthTokens';
-import './i18n';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import './assets/css/style.css';

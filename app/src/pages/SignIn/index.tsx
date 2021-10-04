@@ -12,8 +12,8 @@ export default function SignIn(): JSX.Element {
   const { setAuthorization } = useAuth();
   const history = useHistory();
 
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [email, setEmail] = useState<string>('dev@gfakemail.com');
+  const [password, setPassword] = useState<string>('123123123');
 
   const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
   const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);

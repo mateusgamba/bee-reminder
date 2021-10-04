@@ -1,14 +1,12 @@
 import React from 'react';
 import { Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 
 export default function Home(): JSX.Element {
-  const { t } = useTranslation();
   return (
     <Row className="w-100 no-gutters">
       <Col xs="12" lg={{ size: 6, offset: 3 }} className="text-center">
-        <h2>{t("Don't Forget")}</h2>
+        <h2>Do not Forget</h2>
 
         <p>The easiest way to set reminders.</p>
 
