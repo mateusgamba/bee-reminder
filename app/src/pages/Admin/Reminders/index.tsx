@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react';
-import { Container, Form } from 'reactstrap';
+import { Form } from 'reactstrap';
 import { useForm, FormProvider } from 'react-hook-form';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import Initial from './Content/Initial';
 import ResultSearch from './Content/ResultSearch';
 import useReminder from '../../../hooks/useReminder';
-import Header from './Header';
-import Filters from './Filters';
 import { ReminderDeleteInput } from '../../../ts';
 import './style.css';
 
@@ -51,20 +49,11 @@ const Reminders: React.FC = () => {
   useEffect(() => setValue('remindersId', []), [listReminder]);
 
   return (
-    <>
-      <div className="page-reminder-background"></div>
-      <Container className="position-relative page-reminder">
-        <Header />
-        <main>
-          <Filters />
-          <FormProvider {...methods}>
-            <Form onSubmit={onSubmit} noValidate>
-              <ListReminderComponent />
-            </Form>
-          </FormProvider>
-        </main>
-      </Container>
-    </>
+    <FormProvider {...methods}>
+      <Form onSubmit={onSubmit} noValidate>
+        <ListReminderComponent />
+      </Form>
+    </FormProvider>
   );
 };
 

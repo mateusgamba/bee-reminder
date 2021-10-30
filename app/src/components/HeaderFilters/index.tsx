@@ -3,17 +3,17 @@ import { useForm } from 'react-hook-form';
 import { useHistory, Link } from 'react-router-dom';
 import { Row, Col, FormGroup, Label, Button, Form } from 'reactstrap';
 import queryString from 'query-string';
-import { ReminderFilterInput } from '../../../ts';
-import CustomInput from '../../../components/CustomInput';
+import { ReminderFilterInput } from '../../ts';
+import CustomInput from '../CustomInput';
 
-const Filters: React.FC = () => {
+const HeaderFilters: React.FC = () => {
   const history = useHistory();
   const methods = useForm<ReminderFilterInput>();
 
   const { handleSubmit, register } = methods;
 
   const onSubmit = handleSubmit((date) => {
-    history.push(`/reminders?${queryString.stringify(date)}`);
+    history.push(`/search?${queryString.stringify(date)}`);
   });
 
   return (
@@ -46,4 +46,4 @@ const Filters: React.FC = () => {
   );
 };
 
-export default Filters;
+export default HeaderFilters;
