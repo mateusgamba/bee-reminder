@@ -10,7 +10,7 @@ This project also aims to present some technologies and development methods. It 
 
 The project consists of two modules:
 
-- **API** implemented with Lumen and GraphQL, directory: /api
+- **API** implemented with Lumen and GraphQL, directory: `/api`
 - **APP** developed with RectJS, GraphQL and TypeScript, directory: /app
 
 These modules were developed over the following packages:
