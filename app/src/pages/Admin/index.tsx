@@ -8,6 +8,7 @@ import Profile from './Profile';
 import useAuth from '../../hooks/useAuth';
 import { UserProvider } from '../../hooks/useUser';
 import HeaderFilters from '../../components/HeaderFilters';
+import { UseReminderProvider } from '../../hooks/useReminder';
 
 const RouteProtected = (props: RouteProps) => {
   const { authenticated } = useAuth();
@@ -31,14 +32,16 @@ function AdminContent(): JSX.Element {
 export default function Admin(): JSX.Element {
   return (
     <UserProvider>
-      <div className="page-reminder-background" />
-      <Container className="position-relative page-reminder">
-        <Header />
-        <main>
-          <HeaderFilters />
-          <AdminContent />
-        </main>
-      </Container>
+      <UseReminderProvider>
+        <div className="page-reminder-background" />
+        <Container className="position-relative page-reminder">
+          <Header />
+          <main>
+            <HeaderFilters />
+            <AdminContent />
+          </main>
+        </Container>
+      </UseReminderProvider>
     </UserProvider>
   );
 }

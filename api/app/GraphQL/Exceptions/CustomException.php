@@ -36,6 +36,8 @@ class CustomException extends Exception implements RendersErrorsExtensions
      */
     public function extensionsContent(): array
     {
-        return [];
+        return [
+            'CODE' => 'CUSTOM'
+        ];
     }
 }

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { ApolloClient, createHttpLink, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import App from './App';
-import { getCookie } from './utils/setAuthTokens';
+import { getAuthCookie } from './utils/setAuthTokens';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import './assets/css/style.css';
@@ -14,11 +14,11 @@ const httpLink = createHttpLink({
 });
 
 const authLink = setContext((_, { headers }) => {
-  const authentication = getCookie('bee-authorization');
+  const authentication = getAuthCookie('bee');
   return {
     headers: {
       ...headers,
-      authorization: !!authentication?.access_token && `Bearer ${authentication?.access_token}`,
+      authorization: !!authentication && `Bearer ${authentication}`,
     },
   };
 });

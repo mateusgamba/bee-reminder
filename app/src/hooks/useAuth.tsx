@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { AuthenticationData } from '../ts';
-import { getCookie, setCookie, removeCookie } from '../utils/setAuthTokens';
+import { getAuthCookie, setAuthCookie, removeAuthCookie } from '../utils/setAuthTokens';
 
 interface AuthContextData {
   setAuthorization(data: AuthenticationData): void;
@@ -15,17 +15,17 @@ interface Props {
 export const AuthContext = React.createContext({});
 
 export const UseAuthProvider: React.FC<Props> = ({ children }) => {
-  const authentication = getCookie('bee-authorization');
-  const [authenticated, setAuthenticated] = useState<AuthenticationData | undefined>(authentication);
+  const authentication = getAuthCookie('bee');
+  const [authenticated, setAuthenticated] = useState<string | undefined>(authentication);
 
   const setAuthorization = (accessData: AuthenticationData) => {
-    setCookie('bee-authorization', accessData);
-    setAuthenticated(accessData);
+    setAuthCookie('bee', accessData);
+    setAuthenticated(accessData.access_token);
   };
 
   const clearAuthorization = () => {
     setAuthenticated(undefined);
-    removeCookie('bee-authorization');
+    removeAuthCookie('bee');
   };
 
   return (

@@ -2,11 +2,13 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\GraphQL\Exceptions\CustomException;
+use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Laravel\Passport\Client as OClient;
-use App\GraphQL\Exceptions\CustomException;
+use Laravel\Passport\RefreshToken;
 
 class AuthMutator
 {
@@ -64,7 +66,7 @@ class AuthMutator
      */
     public function unauthorized(): CustomException
     {
-        throw new CustomException(__('auth.failed'));
+        throw new CustomException('The refresh token is invalid.');
     }
 
     /**
@@ -72,9 +74,9 @@ class AuthMutator
      * @param array $data
      * @return array
      */
-    public function oAuthRequest(string $grantType, array $data): array
+    private function oAuthRequest(string $grantType, array $data): array
     {
-        $oClient = OClient::where('password_client', 1)->first();
+        $oClient = OClient::where('password_client', true)->first();
 
         $dataClient = [
             'grant_type' => $grantType,
@@ -84,10 +86,26 @@ class AuthMutator
 
         $parameters = array_merge($dataClient, $data);
 
-        $response = Http::post('http://api-server/oauth/token', $parameters);
+        $response = Http::post(env('PASSPORT_LOGIN_ENDPOINT'), $parameters);
+
 
         if ($response->status() === 200) {
-            return json_decode((string) $response->getBody(), true);
+            $responseDecoded = json_decode((string) $response->getBody(), true);
+
+            $tokenParts = explode('.', $responseDecoded['access_token']);
+            $payload = json_decode((string) base64_decode($tokenParts[1]), true);
+
+            $refreshTokenData = RefreshToken::where('access_token_id', $payload['jti'])
+                ->first()
+                ->toArray();
+
+            $currentDatetime = Carbon::now();
+            $refreshTokenExpiresAt = Carbon::createFromFormat('Y-m-d H:i:s', date('Y-m-d H:i:s', strtotime($refreshTokenData['expires_at'])));
+            $refreshTokenExpiresAtSeconds = $refreshTokenExpiresAt->diffInSeconds($currentDatetime); 
+            
+            $responseDecoded['refresh_token_expires_in'] = $refreshTokenExpiresAtSeconds;
+            
+            return $responseDecoded;
         }
 
         return $this->unauthorized();

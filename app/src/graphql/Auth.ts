@@ -7,6 +7,7 @@ export const LOGIN_GQL = gql`
       refresh_token
       token_type
       expires_in
+      refresh_token_expires_in
     }
   }
 `;

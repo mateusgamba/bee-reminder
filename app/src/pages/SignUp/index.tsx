@@ -4,9 +4,8 @@ import { useMutation, ApolloError } from '@apollo/client';
 import { toast } from 'react-toastify';
 import useAuth from '../../hooks/useAuth';
 import { LOGIN_GQL } from '../../graphql/Auth';
-import './style.css';
 
-const Home: React.FC = () => {
+export default function SignUp(): JSX.Element {
   const { setAuthorization } = useAuth();
 
   const [email, setEmail] = useState<string>('');
@@ -67,6 +66,4 @@ const Home: React.FC = () => {
       </Container>
     </section>
   );
-};
-
-export default Home;
+}

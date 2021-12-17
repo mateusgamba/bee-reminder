@@ -72,7 +72,7 @@ Then run following commands:
 ```
 docker-compose exec api bash
 
-php composer install
+composer install
 
 php artisan migrate
 ```
@@ -82,6 +82,14 @@ If you want to preloading data (it is optional), you can run the following comma
 ```
 php artisan db:seed
 ```
+
+and finally, it is necessary to generate the authentication keys.
+```
+php artisan passport:keys --force
+
+php artisan passport:client --password --provider=users --name=beeOClient
+```
+
 
 ## Access
 

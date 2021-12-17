@@ -4,13 +4,13 @@ import { Row, Col, Button } from 'reactstrap';
 import CreateReminder from '../CreateReminder';
 import useAuth from '../../../hooks/useAuth';
 
-const Header: React.FC = () => {
+export default function Header(): JSX.Element {
   const [modal, setModal] = useState<boolean>(false);
   const { clearAuthorization } = useAuth();
 
   const history = useHistory();
 
-  const back = () => {
+  const logout = () => {
     clearAuthorization();
     history.push('/');
   };
@@ -31,8 +31,8 @@ const Header: React.FC = () => {
               <Button color="secondary btn-bee-secondary mr-3" onClick={toggle}>
                 New reminder
               </Button>
-              <Button color="secondary btn-bee-secondary" onClick={back}>
-                Sign out
+              <Button color="secondary btn-bee-secondary" onClick={logout}>
+                Logout
               </Button>
             </div>
           </Col>
@@ -42,6 +42,4 @@ const Header: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default Header;
+}

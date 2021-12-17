@@ -14,7 +14,7 @@ export default function Home(): JSX.Element {
           Sign In
         </Link>
 
-        <Link to="/" className="btn btn-access ml-5 btn-lg">
+        <Link to="/sign-up" className="btn btn-access ml-5 btn-lg">
           Sign Up
         </Link>
       </Col>

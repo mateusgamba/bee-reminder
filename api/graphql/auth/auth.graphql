@@ -3,6 +3,7 @@ type Auth {
     refresh_token: String
     token_type: String
     expires_in: Int
+    refresh_token_expires_in: Int
 }
 
 extend type Mutation {

@@ -50,6 +50,7 @@ export default function SignIn(): JSX.Element {
               className="form-control-lg"
               placeholder="Enter your E-mail"
               onChange={(e) => onChangeEmail(e)}
+              defaultValue={email}
             />
 
             <Input
@@ -57,6 +58,7 @@ export default function SignIn(): JSX.Element {
               className="form-control-lg mt-3"
               placeholder="Enter your Password"
               onChange={(e) => onChangePassword(e)}
+              defaultValue={password}
             />
 
             <Button className="btn btn-access mt-3" type="button" onClick={onAccess} disabled={loading}>
