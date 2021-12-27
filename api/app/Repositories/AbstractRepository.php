@@ -40,8 +40,7 @@ abstract class AbstractRepository
      */
     public function create(array $data)
     {
-        $test = $this->model->create($data);
-        return $test;
+        return $this->model->create($data);
     }
 
     /**

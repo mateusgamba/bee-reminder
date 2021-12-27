@@ -4,7 +4,7 @@ namespace App\GraphQL\Mutations;
 
 use App\Models\User;
 use App\Services\UserService;
-use Illuminate\Support\Arr;
+use Illuminate\Support\Arr; 
 
 class UserMutator
 {
@@ -26,9 +26,9 @@ class UserMutator
      * @param array $request
      * @return User
      */
-    public function create(?string $root, array $request): User
+    public function create(?string $root, array $request): array
     {
-        $request = Arr::except($request, 'directive');
-        return $this->service->firstOrCreate($request);
+        $request = Arr::except($request, ['directive', 'passwordConfirmation']);
+        return $this->service->create($request);
     }
 }

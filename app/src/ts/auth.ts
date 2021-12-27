@@ -5,3 +5,15 @@ export interface AuthenticationData {
   expires_in: number;
   refresh_token_expires_in: number;
 }
+
+export interface RegisterUser {
+  name: string;
+  email: string;
+  password: string;
+  passwordConfirmation: string;
+}
+
+export interface LoginInput {
+  email: string;
+  password: string;
+}

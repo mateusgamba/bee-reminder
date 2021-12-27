@@ -6,8 +6,11 @@ type User {
 
 extend type Mutation {
     createUser(
-        email: String! @rules(apply: ["required", "email", "max:255"])
-    ): User! @field(resolver: "UserMutator@create")
+        name: String!
+        email: String!
+        password: String!
+        passwordConfirmation: String!
+    ): Auth! @validator @field(resolver: "UserMutator@create")
 }
 
 extend type Query @guard {

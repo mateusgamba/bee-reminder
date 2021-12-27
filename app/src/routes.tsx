@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, BrowserRouter, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 import Admin from './pages/Admin';
 import useAuth from './hooks/useAuth';
@@ -10,20 +10,16 @@ import PublicTemplate from './components/PublicTemplate';
 const Routes: React.FC = () => {
   const { authenticated } = useAuth();
 
-  return (
-    <BrowserRouter>
-      {!authenticated ? (
-        <PublicTemplate>
-          <Switch>
-            <Route component={Home} path="/" exact />
-            <Route component={SignIn} path="/sign-in" exact />
-            <Route component={SignUp} path="/sign-up" exact />
-          </Switch>
-        </PublicTemplate>
-      ) : (
-        <Admin />
-      )}
-    </BrowserRouter>
+  return authenticated ? (
+    <Admin />
+  ) : (
+    <PublicTemplate>
+      <Switch>
+        <Route component={Home} path="/" exact />
+        <Route component={SignIn} path="/sign-in" exact />
+        <Route component={SignUp} path="/sign-up" exact />
+      </Switch>
+    </PublicTemplate>
   );
 };
 

@@ -3,9 +3,12 @@
 namespace App\Services;
 
 use App\Repositories\UserRepository;
+use App\Services\Traits\AuthClient;
 
 class UserService extends AbstractService
 {
+    use AuthClient;
+
     /**
      * @param UserRepository $repository
      */
@@ -13,4 +16,19 @@ class UserService extends AbstractService
     {
         $this->repository = $repository;
     }
+
+    /**
+     * @param array $data
+     * @return User
+     */
+    public function create(array $data)
+    {
+        $user = $this->repository->create($data);
+        $auth = [
+            'email' => $user['email'],
+            'password' => $data['password'],
+        ];
+        return $this->request('password', $auth);
+    }
+
 }

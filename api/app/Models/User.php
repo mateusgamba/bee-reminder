@@ -19,10 +19,19 @@ class User extends Model implements
     /**
      * @var array
      */
-    protected $fillable = ['name', 'email'];
+    protected $fillable = ['name', 'email', 'password'];
 
     /**
      * @var array
      */
     protected $hidden = ['created_at', 'updated_at', 'password'];
+
+    /**
+     * @var array
+     */
+    protected $casts = [
+        'name' => 'string',
+        'email' => 'string',
+        'password' => 'string',
+    ];    
 }
