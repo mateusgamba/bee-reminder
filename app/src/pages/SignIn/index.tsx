@@ -1,26 +1,56 @@
-import React, { useState } from 'react';
-import { Row, Col, Button, Input } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Row, Col, Button, FormGroup, FormFeedback } from 'reactstrap';
+import { Link, useHistory } from 'react-router-dom';
+import { ApolloError, useMutation } from '@apollo/client';
+import { useForm } from 'react-hook-form';
 import useAuth from '../../hooks/useAuth';
+import { LOGIN_GQL } from '../../graphql/Auth';
+import CustomInput from '../../components/CustomInput';
+import { LoginInput } from '../../ts';
 import './style.css';
 
 export default function SignIn(): JSX.Element {
-  const { login, loginLoading } = useAuth();
+  const { setAuthorization } = useAuth();
+  const history = useHistory();
 
-  const [email, setEmail] = useState<string>('dev@gfakemail.com');
-  const [password, setPassword] = useState<string>('123123123');
+  const methods = useForm<LoginInput>({
+    defaultValues: {
+      email: 'dev@gfakemail.com',
+      password: '123123123',
+    },
+  });
 
-  const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
-  const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
+  const {
+    handleSubmit,
+    register,
+    setError,
+    formState: { errors },
+  } = methods;
 
-  const onAccess = () => {
-    login({
-      variables: {
-        email,
-        password,
-      },
-    });
-  };
+  const [login, { loading: loginLoading, error: errorLogin }] = useMutation(LOGIN_GQL, {
+    onCompleted: (response) => {
+      setAuthorization(response.login);
+      history.push('/');
+    },
+    onError: (error: ApolloError) => {
+      if (error?.graphQLErrors?.[0]?.extensions?.category === 'validation') {
+        const validations = error?.graphQLErrors?.[0]?.extensions?.validation;
+
+        Object.keys(validations).forEach((key: string) => {
+          switch (key) {
+            case 'email':
+            case 'password':
+              setError(key, { message: validations[key], type: 'validate' });
+              break;
+          }
+        });
+      }
+    },
+  });
+
+  const onSubmit = handleSubmit((variables) => {
+    login({ variables });
+  });
 
   return (
     <div className="box-center">
@@ -29,26 +59,35 @@ export default function SignIn(): JSX.Element {
           <Col className="text-center rounded bg-white p-3">
             <h4 className="mb-3">Please sign in</h4>
 
-            <Input
-              name="email"
-              className="form-control-lg"
-              placeholder="Enter your E-mail"
-              onChange={(e) => onChangeEmail(e)}
-              defaultValue={email}
-            />
+            {errorLogin?.graphQLErrors?.[0].extensions?.category === 'UNAUTHENTICATED' && (
+              <div className="alert alert-danger">{errorLogin?.message}</div>
+            )}
 
-            <Input
-              name="password"
-              className="form-control-lg mt-3"
-              placeholder="Enter your Password"
-              onChange={(e) => onChangePassword(e)}
-              defaultValue={password}
-            />
+            <form onSubmit={onSubmit} noValidate>
+              <FormGroup>
+                <CustomInput
+                  {...register('email', { required: { value: true, message: 'E-mail is a required field.' } })}
+                  className="form-control-lg"
+                  placeholder="Enter your E-mail"
+                  invalid={Boolean(errors.email)}
+                />
+                {errors.email && <FormFeedback>{errors.email.message}</FormFeedback>}
+              </FormGroup>
 
-            <Button className="btn btn-bee-secondary mt-3 " type="button" onClick={onAccess} disabled={loginLoading}>
-              {loginLoading ? 'Loading...' : 'Access'}
-            </Button>
+              <FormGroup>
+                <CustomInput
+                  {...register('password', { required: { value: true, message: 'Password is a required field.' } })}
+                  className="form-control-lg"
+                  placeholder="Enter your Password"
+                  invalid={Boolean(errors.password)}
+                />
+                {errors.password && <FormFeedback>{errors.password.message}</FormFeedback>}
+              </FormGroup>
 
+              <Button className="btn btn-bee-secondary mt-3 " type="submit" disabled={loginLoading}>
+                {loginLoading ? 'Loading...' : 'Access'}
+              </Button>
+            </form>
             <hr />
             <div className="d-flex justify-content-between">
               <div>

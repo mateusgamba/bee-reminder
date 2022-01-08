@@ -20,7 +20,7 @@ export default function SignUp(): JSX.Element {
   } = methods;
 
   const [createUser, { loading }] = useMutation(CREATE_USER_GQL, {
-    onCompleted: (response) => {
+    onCompleted: () => {
       toast.success('Your account was created successfully. Wait as you are being redirected...');
     },
     onError: (error: ApolloError) => {
