@@ -87,6 +87,7 @@ export default function SignUp(): JSX.Element {
               <FormGroup>
                 <Label for="password">Password</Label>
                 <CustomInput
+                  type="password"
                   {...register('password', { required: { value: true, message: 'Password is a required field.' } })}
                   className="form-control-lg"
                   placeholder="Enter your Password"
@@ -98,6 +99,7 @@ export default function SignUp(): JSX.Element {
               <FormGroup>
                 <Label for="passwordConfirmation">Confirm password:</Label>
                 <CustomInput
+                  type="password"
                   {...register('passwordConfirmation', {
                     required: { value: true, message: 'Confirm Password is a required field.' },
                   })}

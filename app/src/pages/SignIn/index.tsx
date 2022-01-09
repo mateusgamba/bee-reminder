@@ -13,12 +13,7 @@ export default function SignIn(): JSX.Element {
   const { setAuthorization } = useAuth();
   const history = useHistory();
 
-  const methods = useForm<LoginInput>({
-    defaultValues: {
-      email: 'dev@gfakemail.com',
-      password: '123123123',
-    },
-  });
+  const methods = useForm<LoginInput>();
 
   const {
     handleSubmit,
@@ -76,6 +71,7 @@ export default function SignIn(): JSX.Element {
 
               <FormGroup>
                 <CustomInput
+                  type="password"
                   {...register('password', { required: { value: true, message: 'Password is a required field.' } })}
                   className="form-control-lg"
                   placeholder="Enter your Password"
