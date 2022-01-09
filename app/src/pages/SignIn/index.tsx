@@ -84,7 +84,7 @@ export default function SignIn(): JSX.Element {
                 {errors.password && <FormFeedback>{errors.password.message}</FormFeedback>}
               </FormGroup>
 
-              <Button className="btn btn-bee-secondary mt-3 " type="submit" disabled={loginLoading}>
+              <Button className="btn btn-bee-secondary" type="submit" disabled={loginLoading}>
                 {loginLoading ? 'Loading...' : 'Access'}
               </Button>
             </form>

@@ -5,7 +5,6 @@ type Reminder {
 }
 
 input ReminderFilterInput {
-    user_id: ID
     date: BetweenDateTimeInput
 }
 
