@@ -2,16 +2,18 @@ import React from 'react';
 import { Row, Col, Button, FormFeedback, FormGroup, Label } from 'reactstrap';
 import { useMutation, ApolloError } from '@apollo/client';
 import { toast } from 'react-toastify';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import useAuth from '../../hooks/useAuth';
 import CustomInput from '../../components/CustomInput';
 import { RegisterUser } from '../../ts';
 import { CREATE_USER_GQL } from '../../graphql/User';
 import './style.css';
 
 export default function SignUp(): JSX.Element {
+  const { setAuthorization } = useAuth();
   const methods = useForm<RegisterUser>();
-
+  const history = useHistory();
   const {
     handleSubmit,
     register,
@@ -19,23 +21,27 @@ export default function SignUp(): JSX.Element {
     formState: { errors },
   } = methods;
 
-  const [createUser, { loading }] = useMutation(CREATE_USER_GQL, {
-    onCompleted: () => {
-      toast.success('Your account was created successfully. Wait as you are being redirected...');
+  const [createUser, { loading, error: errorSignup }] = useMutation(CREATE_USER_GQL, {
+    onCompleted: (response) => {
+      toast.success('Your account was created successfully.');
+      setAuthorization(response.createUser);
+      history.push('/');
     },
     onError: (error: ApolloError) => {
-      const validations = error?.graphQLErrors?.[0]?.extensions?.validation;
-      Object.keys(validations).forEach((key: string) => {
-        switch (key) {
-          case 'name':
-          case 'email':
-          case 'password':
-          case 'passwordConfirmation':
-            setError(key, { message: validations[key], type: 'validate' });
-            break;
-        }
-      });
-      toast.error('Please correct the following errors and try again');
+      if (errorSignup?.graphQLErrors?.[0].extensions?.category === 'validation') {
+        const validations = error?.graphQLErrors?.[0]?.extensions?.validation;
+        Object.keys(validations).forEach((key: string) => {
+          switch (key) {
+            case 'name':
+            case 'email':
+            case 'password':
+            case 'passwordConfirmation':
+              setError(key, { message: validations[key], type: 'validate' });
+              break;
+          }
+        });
+        toast.error('Please correct the following errors and try again');
+      }
     },
   });
 
@@ -49,6 +55,10 @@ export default function SignUp(): JSX.Element {
         <Row className="no-gutters w-100">
           <Col className="rounded bg-white p-3">
             <h4 className="mb-3 text-center">Create your account</h4>
+
+            {errorSignup && errorSignup?.graphQLErrors?.[0].extensions?.category !== 'validation' && (
+              <div className="alert alert-danger">{errorSignup?.message}</div>
+            )}
 
             <p className="sub-title">Remember everything important.</p>
             <form onSubmit={onSubmit} noValidate>

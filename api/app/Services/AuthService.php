@@ -10,6 +10,6 @@ class AuthService
 
     public function login(array $data): array
     {
-        return $this->request('password', $data);
+        return $this->requestOAuth('password', $data);
     }
 }

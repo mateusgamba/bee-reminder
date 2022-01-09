@@ -19,16 +19,17 @@ class UserService extends AbstractService
 
     /**
      * @param array $data
-     * @return User
+     * @return array
      */
-    public function create(array $data)
+    public function create(array $data): array
     {
-        $user = $this->repository->create($data);
-        $auth = [
-            'email' => $user['email'],
-            'password' => $data['password'],
-        ];
-        return $this->request('password', $auth);
+        $this->repository->create($data);
+        return $this->requestOAuth(
+            'password',
+            [
+                'username' => $data['email'],
+                'password' => $data['password'],
+            ]
+        );
     }
-
 }

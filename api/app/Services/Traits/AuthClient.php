@@ -15,7 +15,7 @@ trait AuthClient
      * @param array $data
      * @return array
      */
-    protected function request(string $grantType, array $data): array
+    protected function requestOAuth(string $grantType, array $data): array
     {
         $oClient = OClient::where('password_client', true)->first();
 
@@ -29,7 +29,6 @@ trait AuthClient
 
         $response = Http::post(env('PASSPORT_LOGIN_ENDPOINT'), $parameters);
 
-
         if ($response->status() === 200) {
             $responseDecoded = json_decode((string) $response->getBody(), true);
 
@@ -42,10 +41,10 @@ trait AuthClient
 
             $currentDatetime = Carbon::now();
             $refreshTokenExpiresAt = Carbon::createFromFormat('Y-m-d H:i:s', date('Y-m-d H:i:s', strtotime($refreshTokenData['expires_at'])));
-            $refreshTokenExpiresAtSeconds = $refreshTokenExpiresAt->diffInSeconds($currentDatetime); 
-            
+            $refreshTokenExpiresAtSeconds = $refreshTokenExpiresAt->diffInSeconds($currentDatetime);
+
             $responseDecoded['refresh_token_expires_in'] = $refreshTokenExpiresAtSeconds;
-            
+
             return $responseDecoded;
         }
 
@@ -53,7 +52,7 @@ trait AuthClient
             $grantType === 'refresh_token'
                 ? 'The refresh token is invalid.'
                 : 'That email or password does not look right. Please try again.'
-        );       
+        );
     }
 
     /**
