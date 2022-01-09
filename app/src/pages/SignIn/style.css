@@ -1,0 +1,16 @@
+.box-center {
+  width: 100%;
+}
+
+@media (max-width: 767px) {
+  .box-center > .box-center-form {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .box-center > .box-center-form {
+    margin: auto;
+    max-width: 400px;
+  }
+}

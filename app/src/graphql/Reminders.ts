@@ -21,8 +21,8 @@ export const DELETE_REMINDER_GQL = gql`
 `;
 
 export const CREATE_REMINDER_GQL = gql`
-  mutation createReminder($description: String!, $date: String!, $user_id: ID!) {
-    createReminder(description: $description, date: $date, user_id: $user_id) {
+  mutation createReminder($description: String!, $date: String!) {
+    createReminder(description: $description, date: $date) {
       id
     }
   }

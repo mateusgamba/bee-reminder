@@ -3,17 +3,17 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, La
 import { useForm } from 'react-hook-form';
 import { useMutation, ApolloError } from '@apollo/client';
 import { toast } from 'react-toastify';
-import useReminder from '../../hooks/useReminder';
-import { CREATE_REMINDER_GQL } from '../../graphql/Reminders';
-import CustomInput from '../../components/CustomInput';
-import { ReminderInput } from '../../ts';
+import useReminder from '../../../hooks/useReminder';
+import { CREATE_REMINDER_GQL } from '../../../graphql/Reminders';
+import CustomInput from '../../../components/CustomInput';
+import { ReminderInput } from '../../../ts';
 
 interface Props {
   toggle: () => void;
 }
 
 const CreateReminderModal: React.FC<Props> = ({ toggle }) => {
-  const { userId, fetchListReminder } = useReminder();
+  const { fetchListReminder } = useReminder();
 
   const onClose = () => {
     methods.reset();
@@ -24,7 +24,6 @@ const CreateReminderModal: React.FC<Props> = ({ toggle }) => {
     defaultValues: {
       description: '',
       date: '',
-      user_id: userId,
     },
   });
 
@@ -52,7 +51,10 @@ const CreateReminderModal: React.FC<Props> = ({ toggle }) => {
   });
 
   const onSubmit = handleSubmit((variables) => {
-    createReminder({ variables });
+    const data = {
+      ...variables,
+    };
+    createReminder({ variables: data });
   });
 
   return (

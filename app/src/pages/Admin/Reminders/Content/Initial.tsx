@@ -2,9 +2,9 @@ import React, { useMemo } from 'react';
 import { Row, Col, Button } from 'reactstrap';
 import moment from 'moment';
 import { useFormContext } from 'react-hook-form';
-import { Reminder } from '../../../ts';
+import { Reminder } from '../../../../ts';
 import Item from './Item';
-import useReminder from '../../../hooks/useReminder';
+import useReminder from '../../../../hooks/useReminder';
 
 const Initial: React.FC = () => {
   const { listReminder } = useReminder();
@@ -13,12 +13,15 @@ const Initial: React.FC = () => {
   const remindersId = watch('remindersId');
 
   const todayList = useMemo(
-    () => listReminder.filter((item: Reminder) => moment(item.date).format('YYYY-M-D') === moment().format('YYYY-M-D')),
+    () =>
+      listReminder
+        ? listReminder.filter((item: Reminder) => moment(item.date).format('YYYY-M-D') === moment().format('YYYY-M-D'))
+        : [],
     [listReminder],
   );
 
   const nextDaysList = useMemo(
-    () => listReminder.filter((item: Reminder) => moment(item.date).isAfter(moment())),
+    () => (listReminder ? listReminder.filter((item: Reminder) => moment(item.date).isAfter(moment())) : []),
     [listReminder],
   );
 

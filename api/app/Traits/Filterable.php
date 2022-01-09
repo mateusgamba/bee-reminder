@@ -20,6 +20,9 @@ trait Filterable
                 if (is_string($value)) {
                     $query = $query->where($field, 'like', $value);
                 }
+                if (is_integer($value)) {
+                    $query = $query->where($field, $value);
+                }
                 if (is_array($value)) {
                     if (self::hasInterval($value)) {
                         $query = $this->setIntervalFilter(

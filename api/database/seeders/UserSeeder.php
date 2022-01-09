@@ -7,7 +7,12 @@ use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
 {
-    public const USERS = [['email' => 'dev@gfakemail.com']];
+    public const USERS = [
+        [
+            'name' => 'dev',
+            'email' => 'dev@gfakemail.com',
+        ],
+    ];
 
     /**
      * @return void
@@ -15,7 +20,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         foreach (self::USERS as $user) {
-            User::firstOrCreate($user);
+            User::factory(1)->create($user);
         }
     }
 }

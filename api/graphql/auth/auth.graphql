@@ -1,0 +1,20 @@
+type Auth {
+    access_token: String
+    refresh_token: String
+    token_type: String
+    expires_in: Int
+    refresh_token_expires_in: Int
+}
+
+extend type Mutation {
+    login(email: String!, password: String!): Auth!
+        @validator
+        @field(resolver: "AuthMutator@login")
+
+    refreshToken(refresh_token: String!): Auth!
+        @field(resolver: "AuthMutator@refreshToken")
+}
+
+extend type Mutation @guard {
+    logout: MessageResponse! @field(resolver: "AuthMutator@logout")
+}

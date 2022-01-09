@@ -5,11 +5,10 @@ type Reminder {
 }
 
 input ReminderFilterInput {
-    user_id: ID
     date: BetweenDateTimeInput
 }
 
-extend type Query {
+extend type Query @guard {
     reminders(filter: ReminderFilterInput!): [Reminder]!
         @paginate(builder: "App\\GraphQL\\Queries\\ReminderQuery@all")
 }
@@ -18,7 +17,6 @@ extend type Mutation {
     createReminder(
         description: String! @rules(apply: ["required", "min:1", "max:255"])
         date: String! @rules(apply: ["required", "date"])
-        user_id: ID! @rules(apply: ["required", "exists:App\\Models\\User,id"])
     ): Reminder! @field(resolver: "ReminderMutator@create")
 
     deleteReminder(

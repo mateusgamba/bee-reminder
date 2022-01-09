@@ -1,20 +1,25 @@
-import React from 'react';
+import React, { Suspense } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import Routes from './routes';
 import { ToastContainer } from 'react-toastify';
-import { UseReminderProvider } from './hooks/useReminder';
+import { UseAuthProvider } from './hooks/useAuth';
 
 const App: React.FC = () => {
   return (
-    <UseReminderProvider>
-      <Routes />
-      <ToastContainer
-        position="top-center"
-        autoClose={3000}
-        hideProgressBar={true}
-        closeOnClick={true}
-        pauseOnHover={false}
-      />
-    </UseReminderProvider>
+    <Suspense fallback="">
+      <BrowserRouter>
+        <UseAuthProvider>
+          <Routes />
+          <ToastContainer
+            position="top-center"
+            autoClose={3000}
+            hideProgressBar={true}
+            closeOnClick={true}
+            pauseOnHover={false}
+          />
+        </UseAuthProvider>
+      </BrowserRouter>
+    </Suspense>
   );
 };
 

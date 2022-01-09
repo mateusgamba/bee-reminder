@@ -10,7 +10,7 @@ This project also aims to present some technologies and development methods. It 
 
 The project consists of two modules:
 
-- **API** implemented with Lumen and GraphQL, directory: /api
+- **API** implemented with Lumen and GraphQL, directory: `/api`
 - **APP** developed with RectJS, GraphQL and TypeScript, directory: /app
 
 These modules were developed over the following packages:
@@ -72,7 +72,7 @@ Then run following commands:
 ```
 docker-compose exec api bash
 
-php composer install
+composer install
 
 php artisan migrate
 ```
@@ -82,6 +82,14 @@ If you want to preloading data (it is optional), you can run the following comma
 ```
 php artisan db:seed
 ```
+
+and finally, it is necessary to generate the authentication keys.
+```
+php artisan passport:keys --force
+
+php artisan passport:client --password --provider=users --name=beeOClient
+```
+
 
 ## Access
 
@@ -112,4 +120,4 @@ The `api-pipeline.yml` file provides the deployment of the API to Heroku, wherea
 
 You can contact me directly on my Email (mateusgamba@gmail.com) or via Linkedin ([https://www.linkedin.com/in/mateusgamba/](https://www.linkedin.com/in/mateusgamba/)).
 
-Kind regards.
+Kind regards

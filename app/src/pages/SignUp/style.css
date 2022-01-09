@@ -1,0 +1,27 @@
+.box-center {
+  width: 100%;
+}
+
+.box-center p.sub-title {
+  font-size: 1rem !important;
+  text-align: center;
+  line-height: 1;
+}
+
+.box-center label {
+  margin-bottom: 0.25rem;
+  line-height: 1;
+}
+
+@media (max-width: 767px) {
+  .box-center > .box-center-form {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .box-center > .box-center-form {
+    margin: auto;
+    max-width: 400px;
+  }
+}

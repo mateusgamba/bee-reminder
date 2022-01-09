@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useContext, useState, useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import moment from 'moment';
 import { useQuery, useMutation } from '@apollo/client';
 import { toast } from 'react-toastify';
@@ -8,7 +7,6 @@ import { Reminder } from '../ts';
 
 interface ReminderFilterInputVariables {
   filter: {
-    user_id: number;
     date?: {
       from?: Date;
       to?: Date;
@@ -21,8 +19,6 @@ interface ReminderDeleteIdVariables {
 }
 
 interface ReminderContextData {
-  userId: number | null;
-  setUserId(userId: number | null): void;
   fetchListReminder(variables?: ReminderFilterInputVariables): void;
   deleteReminder(variables: ReminderDeleteIdVariables): void;
   deleteReminderLoading: boolean;
@@ -32,18 +28,12 @@ interface ReminderContextData {
 export const ReminderContext = React.createContext({});
 
 export const UseReminderProvider: React.FC = ({ children }) => {
-  const [userId, setUserId] = useState<number | null>(() => {
-    const id = sessionStorage.getItem('userId');
-    return !!id ? Number(id) : null;
-  });
-
   const { data: dataListReminder, refetch: fetchListReminder } = useQuery<{
     reminders: { data: Reminder[] };
   }>(LIST_REMINDER_GQL, {
-    skip: !userId,
     fetchPolicy: 'no-cache',
     variables: {
-      filter: { user_id: userId, date: { from: moment().format('YYYY-M-D') } },
+      filter: { date: { from: moment().format('YYYY-M-D') } },
     },
   });
 
@@ -55,8 +45,6 @@ export const UseReminderProvider: React.FC = ({ children }) => {
   });
 
   const contextValues: ReminderContextData = {
-    userId,
-    setUserId,
     fetchListReminder,
     listReminder,
     deleteReminder,
