@@ -1,8 +1,6 @@
 name: API
 
 on:
-  push:
-    branches: [master]
   pull_request:
     branches: [master]
 
@@ -39,20 +37,20 @@ jobs:
           git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
           git push heroku master -f
 
-      - name: Sign in on heroku
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:login
+      # - name: Sign in on heroku
+      #   env:
+      #     HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      #   run: heroku container:login
 
-      - name: Run migration and seeder
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: |
-          heroku run -a ${{ secrets.HEROKU_APP_NAME }} php artisan migrate --force
+      # - name: Run migration and seeder
+      #   env:
+      #     HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      #   run: |
+      #     heroku run -a ${{ secrets.HEROKU_APP_NAME }} php artisan migrate --force
 
-      - name: Run passport
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: |
-          heroku run -a ${{ secrets.HEROKU_APP_NAME }} php artisan passport:keys --force
-          heroku run -a ${{ secrets.HEROKU_APP_NAME }} php artisan passport:client --password --provider=users --name=beeOClient
+      # - name: Run passport
+      #   env:
+      #     HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      #   run: |
+      #     heroku run -a ${{ secrets.HEROKU_APP_NAME }} php artisan passport:keys --force
+      #     heroku run -a ${{ secrets.HEROKU_APP_NAME }} php artisan passport:client --password --provider=users --name=beeOClient

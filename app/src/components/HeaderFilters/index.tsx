@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { useHistory, Link, useLocation } from 'react-router-dom';
 import { Row, Col, FormGroup, Label, Button, Form } from 'reactstrap';
 import queryString from 'query-string';
-import { format, add } from 'date-fns';
 import { ReminderFilterInput } from '../../ts';
 import CustomInput from '../CustomInput';
 import useQueryString from '../../hooks/useQueryString';
@@ -13,13 +12,13 @@ export default function HeaderFilters(): JSX.Element {
   const { pathname } = useLocation();
   const query = useQueryString();
 
-  const from = query.get('from') === '' ? undefined : query.get('from');
-  const to = query.get('to') === '' ? undefined : query.get('to');
+  const from = query.get('from') ?? undefined;
+  const to = query.get('to') ?? undefined;
 
   const methods = useForm<ReminderFilterInput>({
     defaultValues: {
-      from: from ? format(add(new Date(from), { days: 1 }), 'yyyy-MM-dd') : undefined,
-      to: to ? format(add(new Date(to), { days: 1 }), 'yyyy-MM-dd') : undefined,
+      from,
+      to,
     },
   });
 

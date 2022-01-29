@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Row, Col, Button } from 'reactstrap';
+import { Row, Col, Button, Form } from 'reactstrap';
 import { useForm, FormProvider } from 'react-hook-form';
 import Item from './Item';
 import { Reminder, ReminderDeleteInput } from '../../../ts';
@@ -51,7 +51,7 @@ export default function RemindersSearch(): JSX.Element {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={onSubmit}>
+      <Form onSubmit={onSubmit} noValidate>
         <h4>Result Search</h4>
         <div className="d-flex justify-content-end">
           <Button color="link p-0 btn-link-delete mr-3" type="button" onClick={selectAll}>
@@ -77,7 +77,7 @@ export default function RemindersSearch(): JSX.Element {
             </Col>
           </Row>
         )}
-      </form>
+      </Form>
     </FormProvider>
   );
 }
