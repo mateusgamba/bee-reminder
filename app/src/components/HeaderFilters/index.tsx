@@ -1,16 +1,36 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory, Link, useLocation } from 'react-router-dom';
 import { Row, Col, FormGroup, Label, Button, Form } from 'reactstrap';
 import queryString from 'query-string';
+import { format, add } from 'date-fns';
 import { ReminderFilterInput } from '../../ts';
 import CustomInput from '../CustomInput';
+import useQueryString from '../../hooks/useQueryString';
 
-const HeaderFilters: React.FC = () => {
+export default function HeaderFilters(): JSX.Element {
   const history = useHistory();
-  const methods = useForm<ReminderFilterInput>();
+  const { pathname } = useLocation();
+  const query = useQueryString();
 
-  const { handleSubmit, register } = methods;
+  const from = query.get('from') === '' ? undefined : query.get('from');
+  const to = query.get('to') === '' ? undefined : query.get('to');
+
+  const methods = useForm<ReminderFilterInput>({
+    defaultValues: {
+      from: from ? format(add(new Date(from), { days: 1 }), 'yyyy-MM-dd') : undefined,
+      to: to ? format(add(new Date(to), { days: 1 }), 'yyyy-MM-dd') : undefined,
+    },
+  });
+
+  const { handleSubmit, register, setValue } = methods;
+
+  useEffect(() => {
+    if (pathname !== '/search') {
+      setValue('from', '');
+      setValue('to', '');
+    }
+  }, [pathname]);
 
   const onSubmit = handleSubmit((date) => {
     history.push(`/search?${queryString.stringify(date)}`);
@@ -44,6 +64,4 @@ const HeaderFilters: React.FC = () => {
       </Row>
     </Form>
   );
-};
-
-export default HeaderFilters;
+}

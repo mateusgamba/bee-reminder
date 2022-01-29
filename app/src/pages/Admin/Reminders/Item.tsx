@@ -1,17 +1,17 @@
 import React from 'react';
 import { Button, Row, Col } from 'reactstrap';
-import moment from 'moment';
 import { useFormContext } from 'react-hook-form';
-import { Reminder } from '../../../../ts';
-import useReminder from '../../../../hooks/useReminder';
-import { ReactComponent as IconTrash } from '../../../../assets/icons/trash.svg';
+import { Reminder } from '../../../ts';
+import useReminder from '../../../hooks/useReminder';
+import { ReactComponent as IconTrash } from '../../../assets/icons/trash.svg';
+import formatDatetime from '../../../utils/formatDatetime';
 
 interface Props {
   reminder: Reminder;
   showDate?: boolean;
 }
 
-const Item: React.FC<Props> = ({ reminder, showDate }) => {
+export default function Item({ reminder, showDate }: Props): JSX.Element {
   const { deleteReminder, deleteReminderLoading } = useReminder();
 
   const { getValues, setValue } = useFormContext();
@@ -42,7 +42,7 @@ const Item: React.FC<Props> = ({ reminder, showDate }) => {
           {showDate && (
             <div>
               <div className="badge badge-primary badge-bee text-wrap mr-3 mb-2 mb-sm-0">
-                {moment(reminder.date).format('MMMM Do YYYY')}
+                {formatDatetime(reminder.date, 'PPP')}
               </div>
             </div>
           )}
@@ -63,6 +63,4 @@ const Item: React.FC<Props> = ({ reminder, showDate }) => {
       </Col>
     </Row>
   );
-};
-
-export default Item;
+}
