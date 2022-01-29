@@ -1,60 +1,42 @@
-import React, { useEffect } from 'react';
-import { Form } from 'reactstrap';
-import { useForm, FormProvider } from 'react-hook-form';
-import { useLocation } from 'react-router-dom';
-import queryString from 'query-string';
-import Initial from './Content/Initial';
-import ResultSearch from './Content/ResultSearch';
-import useReminder from '../../../hooks/useReminder';
-import { ReminderDeleteInput } from '../../../ts';
+import React, { useMemo } from 'react';
+import { useQuery } from '@apollo/client';
+import moment from 'moment';
+import { LIST_REMINDER_GQL } from '../../../graphql/Reminders';
+import { Reminder } from '../../../ts';
+import List from './List';
 import './style.css';
 
-const COMPONENTS = { Initial, ResultSearch };
-
-const Reminders: React.FC = () => {
-  const { fetchListReminder, deleteReminder, listReminder } = useReminder();
-
-  const methods = useForm<ReminderDeleteInput>({
-    defaultValues: {
-      remindersId: [],
+export default function Reminders(): JSX.Element {
+  const { data: dataListReminder } = useQuery<{
+    reminders: { data: Reminder[] };
+  }>(LIST_REMINDER_GQL, {
+    fetchPolicy: 'no-cache',
+    variables: {
+      filter: { date: { from: moment().format('YYYY-M-D'), to: moment().format('YYYY-M-D') } },
     },
   });
 
-  const { handleSubmit, setValue } = methods;
-
-  const onSubmit = handleSubmit((variables) => {
-    deleteReminder({
-      variables: { id: variables.remindersId },
-    });
+  const { data: dataListReminderNext } = useQuery<{
+    reminders: { data: Reminder[] };
+  }>(LIST_REMINDER_GQL, {
+    fetchPolicy: 'no-cache',
+    variables: {
+      filter: { date: { from: moment().add(1, 'd').format('YYYY-M-D') } },
+    },
   });
 
-  const location = useLocation();
+  const listToday = useMemo(() => {
+    return dataListReminder?.reminders.data ?? [];
+  }, [dataListReminder]);
 
-  const ListReminderComponent = COMPONENTS[location.search ? 'ResultSearch' : 'Initial'];
-
-  useEffect(() => {
-    const parseDate = queryString.parse(location.search);
-    const date = JSON.parse(JSON.stringify(parseDate));
-    setValue('remindersId', []);
-    fetchListReminder({
-      filter: {
-        date: {
-          ...(date.from && { from: date.from }),
-          ...(date.to && { to: date.to }),
-        },
-      },
-    });
-  }, [location.search]);
-
-  useEffect(() => setValue('remindersId', []), [listReminder]);
+  const listNext = useMemo(() => {
+    return dataListReminderNext?.reminders.data ?? [];
+  }, [dataListReminderNext]);
 
   return (
-    <FormProvider {...methods}>
-      <Form onSubmit={onSubmit} noValidate>
-        <ListReminderComponent />
-      </Form>
-    </FormProvider>
+    <>
+      <List reminders={listToday} title="Today" />
+      <List reminders={listNext} title="Next Days" showDate={true} />
+    </>
   );
-};
-
-export default Reminders;
+}

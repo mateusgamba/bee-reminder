@@ -10,8 +10,8 @@ export interface ReminderInput {
 }
 
 export interface ReminderFilterInput {
-  from?: Date;
-  to?: Date;
+  from?: string;
+  to?: string;
 }
 
 export interface ReminderDeleteInput {

@@ -3,7 +3,6 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, La
 import { useForm } from 'react-hook-form';
 import { useMutation, ApolloError } from '@apollo/client';
 import { toast } from 'react-toastify';
-import useReminder from '../../../hooks/useReminder';
 import { CREATE_REMINDER_GQL } from '../../../graphql/Reminders';
 import CustomInput from '../../../components/CustomInput';
 import { ReminderInput } from '../../../ts';
@@ -13,8 +12,6 @@ interface Props {
 }
 
 const CreateReminderModal: React.FC<Props> = ({ toggle }) => {
-  const { fetchListReminder } = useReminder();
-
   const onClose = () => {
     methods.reset();
     toggle();
@@ -47,7 +44,8 @@ const CreateReminderModal: React.FC<Props> = ({ toggle }) => {
       });
       toast.error('Please correct the following errors and try again');
     },
-    onCompleted: () => [toast.success('Registered successfully'), onClose(), fetchListReminder()],
+    onCompleted: () => [toast.success('Registered successfully'), onClose()],
+    refetchQueries: ['reminders'],
   });
 
   const onSubmit = handleSubmit((variables) => {
@@ -77,7 +75,6 @@ const CreateReminderModal: React.FC<Props> = ({ toggle }) => {
           <FormGroup>
             <Label for="date">Date</Label>
             <CustomInput {...register('date')} type="date" id="date" invalid={errors.date ? true : false} />
-
             {errors.date && <FormFeedback>{errors.date.message}</FormFeedback>}
           </FormGroup>
         </ModalBody>

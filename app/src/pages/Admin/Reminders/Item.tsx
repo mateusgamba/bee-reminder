@@ -2,9 +2,9 @@ import React from 'react';
 import { Button, Row, Col } from 'reactstrap';
 import moment from 'moment';
 import { useFormContext } from 'react-hook-form';
-import { Reminder } from '../../../../ts';
-import useReminder from '../../../../hooks/useReminder';
-import { ReactComponent as IconTrash } from '../../../../assets/icons/trash.svg';
+import { Reminder } from '../../../ts';
+import useReminder from '../../../hooks/useReminder';
+import { ReactComponent as IconTrash } from '../../../assets/icons/trash.svg';
 
 interface Props {
   reminder: Reminder;
