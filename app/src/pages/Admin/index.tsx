@@ -4,10 +4,9 @@ import { Container } from 'reactstrap';
 import Header from './Reminders/Header';
 import Reminders from './Reminders';
 import RemindersSearch from './RemindersSearch';
-import Profile from './Profile';
 import useAuth from '../../hooks/useAuth';
-import { UserProvider } from '../../hooks/useUser';
 import HeaderFilters from '../../components/HeaderFilters';
+import { UserProvider } from '../../hooks/useUser';
 import { UseReminderProvider } from '../../hooks/useReminder';
 
 const RouteProtected = (props: RouteProps) => {
@@ -23,7 +22,6 @@ function AdminContent(): JSX.Element {
     <Switch>
       <RouteProtected component={Reminders} path="/" exact />
       <RouteProtected component={RemindersSearch} path="/search" exact />
-      <RouteProtected component={Profile} path="/profile" exact />
       <RouteProtected component={() => <Redirect to="/" />} />
     </Switch>
   );

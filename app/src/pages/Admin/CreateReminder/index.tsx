@@ -11,7 +11,7 @@ interface Props {
   toggle: () => void;
 }
 
-const CreateReminderModal: React.FC<Props> = ({ toggle }) => {
+export default function CreateReminderModal({ toggle }: Props): JSX.Element {
   const onClose = () => {
     methods.reset();
     toggle();
@@ -89,6 +89,4 @@ const CreateReminderModal: React.FC<Props> = ({ toggle }) => {
       </Form>
     </Modal>
   );
-};
-
-export default CreateReminderModal;
+}

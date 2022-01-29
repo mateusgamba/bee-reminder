@@ -12,9 +12,13 @@ interface ReminderContextData {
   deleteReminderLoading: boolean;
 }
 
+interface Props {
+  children: JSX.Element | JSX.Element[];
+}
+
 export const ReminderContext = React.createContext({});
 
-export const UseReminderProvider: React.FC = ({ children }) => {
+export function UseReminderProvider({ children }: Props): JSX.Element {
   const [deleteReminder, { loading: deleteReminderLoading }] = useMutation(DELETE_REMINDER_GQL, {
     onCompleted: () => [toast.success('Successfully deleted')],
     onError: () => toast.error('An error has occurred.'),
@@ -26,7 +30,7 @@ export const UseReminderProvider: React.FC = ({ children }) => {
     deleteReminderLoading,
   };
   return <ReminderContext.Provider value={contextValues}>{children}</ReminderContext.Provider>;
-};
+}
 
 export default function useReminderContext(): ReminderContextData {
   return useContext(ReminderContext) as ReminderContextData;

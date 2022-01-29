@@ -3,12 +3,12 @@ import { useForm } from 'react-hook-form';
 import { useHistory, Link, useLocation } from 'react-router-dom';
 import { Row, Col, FormGroup, Label, Button, Form } from 'reactstrap';
 import queryString from 'query-string';
+import { format } from 'date-fns';
 import { ReminderFilterInput } from '../../ts';
 import CustomInput from '../CustomInput';
 import useQueryString from '../../hooks/useQueryString';
-import { format } from 'date-fns';
 
-const HeaderFilters: React.FC = () => {
+export default function HeaderFilters(): JSX.Element {
   const history = useHistory();
   const { pathname } = useLocation();
   const query = useQueryString();
@@ -64,6 +64,4 @@ const HeaderFilters: React.FC = () => {
       </Row>
     </Form>
   );
-};
-
-export default HeaderFilters;
+}

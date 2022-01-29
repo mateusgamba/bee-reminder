@@ -14,7 +14,7 @@ interface Props {
 
 export const AuthContext = React.createContext({});
 
-export const UseAuthProvider: React.FC<Props> = ({ children }) => {
+export function UseAuthProvider({ children }: Props): JSX.Element {
   const authentication = getAuthCookie('bee');
   const [authenticated, setAuthenticated] = useState<string | undefined>(authentication);
 
@@ -39,7 +39,7 @@ export const UseAuthProvider: React.FC<Props> = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
-};
+}
 
 export default function useAuthContext(): AuthContextData {
   return useContext(AuthContext) as AuthContextData;

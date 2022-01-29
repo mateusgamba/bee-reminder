@@ -11,7 +11,7 @@ interface Props {
   showDate?: boolean;
 }
 
-const Item: React.FC<Props> = ({ reminder, showDate }) => {
+export default function Item({ reminder, showDate }: Props): JSX.Element {
   const { deleteReminder, deleteReminderLoading } = useReminder();
 
   const { getValues, setValue } = useFormContext();
@@ -63,6 +63,4 @@ const Item: React.FC<Props> = ({ reminder, showDate }) => {
       </Col>
     </Row>
   );
-};
-
-export default Item;
+}

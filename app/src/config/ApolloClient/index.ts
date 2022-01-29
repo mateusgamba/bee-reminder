@@ -2,9 +2,10 @@ import { ApolloClient, InMemoryCache, HttpLink, from } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
 import { getAuthCookie, removeAuthCookie } from '../../utils/setAuthTokens';
+import { REACT_APP_API } from '../Env';
 
 const httpLink = new HttpLink({
-  uri: process.env.REACT_APP_API || 'http://localhost:8000/graphql',
+  uri: REACT_APP_API,
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -22,7 +23,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
     graphQLErrors.forEach(({ message, locations, path }) => {
       if (message === 'Unauthenticated.') {
         removeAuthCookie('bee');
-        window.location.href = 'http://localhost:3000/';
+        window.location.href = '/';
       } else {
         console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`);
       }
