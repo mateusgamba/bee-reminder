@@ -3,7 +3,6 @@ import { Row, Col, Button } from 'reactstrap';
 import useReminder from '../../../hooks/useReminder';
 import { Form } from 'reactstrap';
 import { useForm, FormProvider } from 'react-hook-form';
-
 import { Reminder, ReminderDeleteInput } from '../../../ts';
 import Item from './Item';
 
@@ -40,8 +39,9 @@ export default function List({ reminders, title, showDate }: Props): JSX.Element
   return (
     <FormProvider {...methods}>
       <Form onSubmit={onSubmit} noValidate>
-        <h4>{title}</h4>
-
+        <div>
+          <h4>{title}</h4>
+        </div>
         <div className="d-flex justify-content-end">
           <Button color="link p-0 btn-link-delete mr-3" type="button" onClick={selectAll}>
             Select All

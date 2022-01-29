@@ -1,7 +1,7 @@
 export interface Reminder {
   id: string;
   description?: string;
-  date?: string;
+  date: string;
 }
 
 export interface ReminderInput {

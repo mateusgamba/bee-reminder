@@ -1,10 +1,10 @@
 import React from 'react';
 import { Button, Row, Col } from 'reactstrap';
-import moment from 'moment';
 import { useFormContext } from 'react-hook-form';
 import { Reminder } from '../../../ts';
 import useReminder from '../../../hooks/useReminder';
 import { ReactComponent as IconTrash } from '../../../assets/icons/trash.svg';
+import formatDatetime from '../../../utils/formatDatetime';
 
 interface Props {
   reminder: Reminder;
@@ -42,7 +42,7 @@ export default function Item({ reminder, showDate }: Props): JSX.Element {
           {showDate && (
             <div>
               <div className="badge badge-primary badge-bee text-wrap mr-3 mb-2 mb-sm-0">
-                {moment(reminder.date).format('MMMM Do YYYY')}
+                {formatDatetime(reminder.date, 'PPP')}
               </div>
             </div>
           )}

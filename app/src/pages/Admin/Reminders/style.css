@@ -29,3 +29,9 @@
 .page-reminder .btn-link-delete {
   line-height: 1 !important;
 }
+
+.page-reminder h4 {
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+  line-height: 1 !important;
+}

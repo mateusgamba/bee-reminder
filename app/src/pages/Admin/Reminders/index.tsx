@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useQuery } from '@apollo/client';
-import moment from 'moment';
+import { format, add } from 'date-fns';
 import { LIST_REMINDER_GQL } from '../../../graphql/Reminders';
 import { Reminder } from '../../../ts';
 import List from './List';
@@ -12,7 +12,7 @@ export default function Reminders(): JSX.Element {
   }>(LIST_REMINDER_GQL, {
     fetchPolicy: 'no-cache',
     variables: {
-      filter: { date: { from: moment().format('YYYY-M-D'), to: moment().format('YYYY-M-D') } },
+      filter: { date: { from: format(new Date(), 'yyyy-MM-dd'), to: format(new Date(), 'yyyy-MM-dd') } },
     },
   });
 
@@ -21,7 +21,7 @@ export default function Reminders(): JSX.Element {
   }>(LIST_REMINDER_GQL, {
     fetchPolicy: 'no-cache',
     variables: {
-      filter: { date: { from: moment().add(1, 'd').format('YYYY-M-D') } },
+      filter: { date: { from: format(add(new Date(), { days: 1 }), 'yyyy-MM-dd') } },
     },
   });
 
