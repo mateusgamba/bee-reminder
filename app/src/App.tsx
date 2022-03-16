@@ -1,15 +1,15 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import Routes from './routes';
+import PublicRoutes from './PublicRoutes';
 import { ToastContainer } from 'react-toastify';
 import { UseAuthProvider } from './hooks/useAuth';
 
-const App: React.FC = () => {
+export default function App(): JSX.Element {
   return (
     <Suspense fallback="">
       <BrowserRouter>
         <UseAuthProvider>
-          <Routes />
+          <PublicRoutes />
           <ToastContainer
             position="top-center"
             autoClose={3000}
@@ -21,6 +21,4 @@ const App: React.FC = () => {
       </BrowserRouter>
     </Suspense>
   );
-};
-
-export default App;
+}

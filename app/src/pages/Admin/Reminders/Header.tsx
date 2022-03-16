@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Row, Col, Button } from 'reactstrap';
 import CreateReminder from '../CreateReminder';
 import useAuth from '../../../hooks/useAuth';
@@ -8,11 +8,11 @@ export default function Header(): JSX.Element {
   const [modal, setModal] = useState<boolean>(false);
   const { clearAuthorization } = useAuth();
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const logout = () => {
     clearAuthorization();
-    history.push('/');
+    navigate('/');
   };
 
   const toggle = () => setModal(!modal);

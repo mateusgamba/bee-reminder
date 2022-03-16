@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Col, Button, FormFeedback, FormGroup, Label } from 'reactstrap';
 import { useMutation, ApolloError } from '@apollo/client';
 import { toast } from 'react-toastify';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../hooks/useAuth';
 import CustomInput from '../../components/CustomInput';
@@ -13,7 +13,7 @@ import './style.css';
 export default function SignUp(): JSX.Element {
   const { setAuthorization } = useAuth();
   const methods = useForm<RegisterUser>();
-  const history = useHistory();
+  const navigate = useNavigate();
   const {
     handleSubmit,
     register,
@@ -25,7 +25,7 @@ export default function SignUp(): JSX.Element {
     onCompleted: (response) => {
       toast.success('Your account was created successfully.');
       setAuthorization(response.createUser);
-      history.push('/');
+      navigate('/');
     },
     onError: (error: ApolloError) => {
       if (errorSignup?.graphQLErrors?.[0].extensions?.category === 'validation') {

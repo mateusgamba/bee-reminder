@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useHistory, Link, useLocation } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { Row, Col, FormGroup, Label, Button, Form } from 'reactstrap';
 import queryString from 'query-string';
 import { ReminderFilterInput } from '../../ts';
@@ -8,7 +8,7 @@ import CustomInput from '../CustomInput';
 import useQueryString from '../../hooks/useQueryString';
 
 export default function HeaderFilters(): JSX.Element {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const query = useQueryString();
 
@@ -32,7 +32,7 @@ export default function HeaderFilters(): JSX.Element {
   }, [pathname]);
 
   const onSubmit = handleSubmit((date) => {
-    history.push(`/search?${queryString.stringify(date)}`);
+    navigate(`/search?${queryString.stringify(date)}`);
   });
 
   return (

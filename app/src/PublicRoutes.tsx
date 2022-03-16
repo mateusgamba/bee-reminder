@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Admin from './pages/Admin';
 import useAuth from './hooks/useAuth';
@@ -7,20 +7,18 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import PublicTemplate from './components/PublicTemplate';
 
-const Routes: React.FC = () => {
+export default function PublicRoutes(): JSX.Element {
   const { authenticated } = useAuth();
 
   return authenticated ? (
     <Admin />
   ) : (
     <PublicTemplate>
-      <Switch>
-        <Route component={Home} path="/" exact />
-        <Route component={SignIn} path="/sign-in" exact />
-        <Route component={SignUp} path="/sign-up" exact />
-      </Switch>
+      <Routes>
+        <Route element={<Home />} path="/" />
+        <Route element={<SignIn />} path="/sign-in" />
+        <Route element={<SignUp />} path="/sign-up" />
+      </Routes>
     </PublicTemplate>
   );
-};
-
-export default Routes;
+}

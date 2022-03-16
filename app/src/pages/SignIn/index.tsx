@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col, Button, FormGroup, FormFeedback } from 'reactstrap';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ApolloError, useMutation } from '@apollo/client';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../hooks/useAuth';
@@ -11,7 +11,7 @@ import './style.css';
 
 export default function SignIn(): JSX.Element {
   const { setAuthorization } = useAuth();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const methods = useForm<LoginInput>();
 
@@ -25,7 +25,7 @@ export default function SignIn(): JSX.Element {
   const [login, { loading: loginLoading, error: errorLogin }] = useMutation(LOGIN_GQL, {
     onCompleted: (response) => {
       setAuthorization(response.login);
-      history.push('/');
+      navigate('/');
     },
     onError: (error: ApolloError) => {
       if (error?.graphQLErrors?.[0]?.extensions?.category === 'validation') {
