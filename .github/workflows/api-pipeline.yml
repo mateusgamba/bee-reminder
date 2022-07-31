@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
+      - name: Setting up the environment
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
@@ -19,66 +21,19 @@ jobs:
           appdir: "api"
           branch: master
 
-      - name: Sign in on heroku
+      - name: Signing in on heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: heroku container:login
 
-      - name: Run migration and seeder
+      - name: Running migrations
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: heroku run -a ${{ secrets.HEROKU_APP_NAME }} php artisan migrate --force
-# jobs:
-#   api-pipeline:
-#     runs-on: ubuntu-latest
 
-#     steps:
-#       - uses: actions/checkout@v2
-#         with:
-#           php-version: "8.0"
-
-#       - name: Setup and run tests
-#         working-directory: ./api
-#         run: |
-#           composer install --prefer-dist
-#       - name: Git fetch
-#         working-directory: ./api
-#         run: git fetch --prune --unshallow
-
-#       - uses: akhileshns/heroku-deploy@v3.12.12
-#         with:
-#           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-#           heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
-#           heroku_email: "$GITHUB_ACTOR@github.com"
-#           appdir: "api"
-# - name: Deploy to Heroku
-#   working-directory: ./api
-#   if: github.ref == 'refs/heads/master' && job.status == 'success'
-#   run: |
-#     echo "web: vendor/bin/heroku-php-apache2 public/" > Procfile
-#     git config --global init.defaultBranch master
-#     git config --global user.email "$GITHUB_ACTOR@github.com"
-#     git config --global user.name "$GITHUB_ACTOR"
-#     git init
-#     git add --all
-#     git commit -m 'deployment'
-#     git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
-#     git push heroku master -f
-
-# - name: Sign in on heroku
-#   env:
-#     HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-#   run: heroku container:login
-
-# - name: Run migration and seeder
-#   env:
-#     HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-#   run: |
-#     heroku run -a ${{ secrets.HEROKU_APP_NAME }} php artisan migrate --force
-
-# - name: Run passport
-#   env:
-#     HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-#   run: |
-#     heroku run -a ${{ secrets.HEROKU_APP_NAME }} php artisan passport:keys --force
-#     heroku run -a ${{ secrets.HEROKU_APP_NAME }} php artisan passport:client --password --provider=users --name=beeOClient
+      - name: Creating the authorization code
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          heroku run -a ${{ secrets.HEROKU_APP_NAME }} php artisan passport:keys --force
+          heroku run -a ${{ secrets.HEROKU_APP_NAME }} php artisan passport:client --password --provider=users --name=beeOClient
