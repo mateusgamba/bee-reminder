@@ -30,12 +30,12 @@ jobs:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: heroku run -a ${{ secrets.HEROKU_APP_NAME }} php artisan migrate --force
 
-      # - name: Creating the authorization code
-      #   env:
-      #     HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      #   run: |
-      #     heroku run -a ${{ secrets.HEROKU_APP_NAME }} php artisan clear-compiled
-      #     heroku run -a ${{ secrets.HEROKU_APP_NAME }} php artisan optimize
-      #     heroku run -a ${{ secrets.HEROKU_APP_NAME }} chmod -R 777 storage
-      #     heroku run -a ${{ secrets.HEROKU_APP_NAME }} php artisan passport:keys --force
-      #     heroku run -a ${{ secrets.HEROKU_APP_NAME }} php artisan passport:client --password --provider=users --name=beeOClient
+      - name: Creating the authorization code
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          heroku run -a ${{ secrets.HEROKU_APP_NAME }} php artisan clear-compiled
+          heroku run -a ${{ secrets.HEROKU_APP_NAME }} php artisan optimize
+          heroku run -a ${{ secrets.HEROKU_APP_NAME }} chmod -R 777 storage
+          heroku run -a ${{ secrets.HEROKU_APP_NAME }} php artisan passport:keys --force
+          heroku run -a ${{ secrets.HEROKU_APP_NAME }} php artisan passport:client --password --provider=users --name=beeOClient
