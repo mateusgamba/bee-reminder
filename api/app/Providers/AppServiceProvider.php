@@ -14,6 +14,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        Passport::loadKeysFrom('/app/storage/app');
+        Passport::loadKeysFrom('/app');
     }
 }
