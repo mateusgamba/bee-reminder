@@ -4,7 +4,6 @@ import { format, add } from 'date-fns';
 import { LIST_REMINDER_GQL } from '../../../graphql/Reminders';
 import { Reminder } from '../../../ts';
 import List from './List';
-import './style.css';
 
 export default function Reminders(): JSX.Element {
   const { data: dataListReminder } = useQuery<{
