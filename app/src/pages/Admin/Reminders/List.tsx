@@ -39,26 +39,26 @@ export default function List({ reminders, title, showDate }: Props): JSX.Element
   return (
     <FormProvider {...methods}>
       <Form onSubmit={onSubmit} noValidate>
-        <div>
-          <h4>{title}</h4>
-        </div>
-        <div className="d-flex justify-content-end">
-          <Button color="link p-0 btn-link-delete mr-3" type="button" onClick={selectAll}>
-            Select All
-          </Button>
-          <Button color="link p-0 btn-link-delete" type="submit" disabled={remindersId.length ? false : true}>
-            Delete selected items{!!remindersId.length && ` (${remindersId.length})`}
-          </Button>
-        </div>
+        <h4 className="mb-3">{title}</h4>
+
         {reminders.length > 0 ? (
           <>
+            <div className="d-flex justify-content-start mb-3">
+              <Button color="link p-0 btn-link-delete me-3" type="button" onClick={selectAll}>
+                Select All
+              </Button>
+              <Button color="link p-0 btn-link-delete" type="submit" disabled={remindersId.length ? false : true}>
+                Delete selected items{!!remindersId.length && ` (${remindersId.length})`}
+              </Button>
+            </div>
+
             {reminders.map((reminder: Reminder) => (
               <Item reminder={reminder} key={reminder.id} showDate={showDate} />
             ))}
             <p className="mb-0 mt-2 ml-1">Total: {reminders.length}</p>
           </>
         ) : (
-          <Row className="mt-3 border rounded p-3 bg-light no-gutters">
+          <Row className="border rounded p-3 bg-light g-0">
             <Col xs="12" className="d-flex align-items-center">
               <p className="mb-0">You don&apos;t have any reminders today</p>
             </Col>

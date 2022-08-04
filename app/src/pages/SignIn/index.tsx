@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Row, Col, Button, FormGroup, FormFeedback } from 'reactstrap';
 import { Link, useHistory } from 'react-router-dom';
 import { ApolloError, useMutation } from '@apollo/client';
@@ -29,13 +29,12 @@ export default function SignIn(): JSX.Element {
     },
     onError: (error: ApolloError) => {
       if (error?.graphQLErrors?.[0]?.extensions?.category === 'validation') {
-        const validations = error?.graphQLErrors?.[0]?.extensions?.validation;
-
+        const validations = error?.graphQLErrors?.[0]?.extensions?.validation as Record<string, string[]>;
         Object.keys(validations).forEach((key: string) => {
           switch (key) {
             case 'email':
             case 'password':
-              setError(key, { message: validations[key], type: 'validate' });
+              setError(key, { message: validations[key][0], type: 'validate' });
               break;
           }
         });
@@ -47,6 +46,11 @@ export default function SignIn(): JSX.Element {
     login({ variables });
   });
 
+  const errorMessage = useMemo(
+    () => errorLogin?.graphQLErrors?.[0].extensions?.category === 'UNAUTHENTICATED' && errorLogin?.message,
+    [errorLogin],
+  );
+
   return (
     <div className={styles['box-center']}>
       <div className={styles['box-center-form']}>
@@ -54,9 +58,7 @@ export default function SignIn(): JSX.Element {
           <Col className="text-center rounded bg-white p-4">
             <h4 className="mb-3">Please sign in</h4>
 
-            {errorLogin?.graphQLErrors?.[0].extensions?.category === 'UNAUTHENTICATED' && (
-              <div className="alert alert-danger">{errorLogin?.message}</div>
-            )}
+            {!!errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
 
             <form onSubmit={onSubmit} noValidate>
               <FormGroup>

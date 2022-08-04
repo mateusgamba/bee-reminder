@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react';
 import { Row, Col, Button, Form } from 'reactstrap';
 import { useForm, FormProvider } from 'react-hook-form';
-import Item from './Item';
+import { useQuery } from '@apollo/client';
 import { Reminder, ReminderDeleteInput } from '../../../ts';
 import useReminder from '../../../hooks/useReminder';
 import useQueryString from '../../../hooks/useQueryString';
-import { useQuery } from '@apollo/client';
 import { LIST_REMINDER_GQL } from '../../../graphql/Reminders';
+import Item from '../Reminders/Item';
 
 export default function RemindersSearch(): JSX.Element {
   const { deleteReminder } = useReminder();
@@ -54,7 +54,7 @@ export default function RemindersSearch(): JSX.Element {
       <Form onSubmit={onSubmit} noValidate>
         <h4>Result Search</h4>
         <div className="d-flex justify-content-end">
-          <Button color="link p-0 btn-link-delete mr-3" type="button" onClick={selectAll}>
+          <Button color="link p-0 btn-link-delete me-3" type="button" onClick={selectAll}>
             Select All
           </Button>
 
@@ -68,10 +68,10 @@ export default function RemindersSearch(): JSX.Element {
             {listReminder.map((reminder: Reminder) => (
               <Item reminder={reminder} key={reminder.id} showDate />
             ))}
-            <p className="mb-0 mt-2 ml-1">Total: {listReminder.length}</p>
+            <p className="mb-0 mt-2 ms-1">Total: {listReminder.length}</p>
           </>
         ) : (
-          <Row className="mt-3 border rounded p-3 bg-light no-gutters">
+          <Row className="mt-3 border rounded p-3 bg-light g-0">
             <Col xs="12" className="d-flex align-items-center">
               <p className="mb-0">You don&apos;t have any reminders</p>
             </Col>

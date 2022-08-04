@@ -33,12 +33,12 @@ export default function CreateReminderModal({ toggle }: Props): JSX.Element {
 
   const [createReminder, { loading }] = useMutation(CREATE_REMINDER_GQL, {
     onError: (error: ApolloError) => {
-      const validations = error?.graphQLErrors?.[0]?.extensions?.validation;
+      const validations = error?.graphQLErrors?.[0]?.extensions?.validation as Record<string, string[]>;
       Object.keys(validations).forEach((key: string) => {
         switch (key) {
           case 'description':
           case 'date':
-            setError(key, { message: validations[key], type: 'validate' });
+            setError(key, { message: validations[key][0], type: 'validate' });
             break;
         }
       });

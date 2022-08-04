@@ -3,8 +3,6 @@ name: APP
 on:
   push:
     branches: [master]
-  pull_request:
-    branches: [master]
 
 jobs:
   app-pipeline:
