@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Row, Col, Button, FormFeedback, FormGroup, Label } from 'reactstrap';
 import { useMutation, ApolloError } from '@apollo/client';
 import { toast } from 'react-toastify';
@@ -29,14 +29,14 @@ export default function SignUp(): JSX.Element {
     },
     onError: (error: ApolloError) => {
       if (errorSignup?.graphQLErrors?.[0].extensions?.category === 'validation') {
-        const validations = error?.graphQLErrors?.[0]?.extensions?.validation;
+        const validations = error?.graphQLErrors?.[0]?.extensions?.validation as Record<string, string[]>;
         Object.keys(validations).forEach((key: string) => {
           switch (key) {
             case 'name':
             case 'email':
             case 'password':
             case 'passwordConfirmation':
-              setError(key, { message: validations[key], type: 'validate' });
+              setError(key, { message: validations[key][0], type: 'validate' });
               break;
           }
         });
@@ -49,6 +49,11 @@ export default function SignUp(): JSX.Element {
     createUser({ variables });
   });
 
+  const errorMessage = useMemo(
+    () => errorSignup?.graphQLErrors?.[0].extensions?.category === 'UNAUTHENTICATED' && errorSignup?.message,
+    [errorSignup],
+  );
+
   return (
     <div className={styles['box-center']}>
       <div className={styles['box-center-form']}>
@@ -56,9 +61,7 @@ export default function SignUp(): JSX.Element {
           <Col className="rounded bg-white p-4">
             <h4 className="mb-3 text-center">Create your account</h4>
 
-            {errorSignup && errorSignup?.graphQLErrors?.[0].extensions?.category !== 'validation' && (
-              <div className="alert alert-danger">{errorSignup?.message}</div>
-            )}
+            {!!errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
 
             <p className="sub-title">Remember everything important.</p>
             <form onSubmit={onSubmit} noValidate>

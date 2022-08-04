@@ -145,3 +145,7 @@ h5 {
     font-size: 29px;
   }
 }
+
+.text-secondary {
+  color: var(--secondary-color) !important;
+}
