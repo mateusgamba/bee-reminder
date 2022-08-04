@@ -8,6 +8,7 @@ import useAuth from '../../hooks/useAuth';
 import HeaderFilters from '../../components/HeaderFilters';
 import { UserProvider } from '../../hooks/useUser';
 import { UseReminderProvider } from '../../hooks/useReminder';
+import styles from './styles.module.scss';
 
 const RouteProtected = (props: RouteProps) => {
   const { authenticated } = useAuth();
@@ -31,8 +32,8 @@ export default function Admin(): JSX.Element {
   return (
     <UserProvider>
       <UseReminderProvider>
-        <div className="page-reminder-background" />
-        <Container className="position-relative page-reminder">
+        <div className={styles['page-reminder-background']} />
+        <Container className={styles['page-reminder']}>
           <Header />
           <main>
             <HeaderFilters />

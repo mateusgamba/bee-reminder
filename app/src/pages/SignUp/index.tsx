@@ -8,7 +8,7 @@ import useAuth from '../../hooks/useAuth';
 import CustomInput from '../../components/CustomInput';
 import { RegisterUser } from '../../ts';
 import { CREATE_USER_GQL } from '../../graphql/User';
-import './style.css';
+import styles from './styles.module.scss';
 
 export default function SignUp(): JSX.Element {
   const { setAuthorization } = useAuth();
@@ -50,10 +50,10 @@ export default function SignUp(): JSX.Element {
   });
 
   return (
-    <div className="box-center">
-      <div className="box-center-form">
+    <div className={styles['box-center']}>
+      <div className={styles['box-center-form']}>
         <Row className="no-gutters w-100">
-          <Col className="rounded bg-white p-3">
+          <Col className="rounded bg-white p-4">
             <h4 className="mb-3 text-center">Create your account</h4>
 
             {errorSignup && errorSignup?.graphQLErrors?.[0].extensions?.category !== 'validation' && (

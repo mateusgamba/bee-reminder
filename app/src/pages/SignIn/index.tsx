@@ -7,7 +7,7 @@ import useAuth from '../../hooks/useAuth';
 import { LOGIN_GQL } from '../../graphql/Auth';
 import CustomInput from '../../components/CustomInput';
 import { LoginInput } from '../../ts';
-import './style.css';
+import styles from './styles.module.scss';
 
 export default function SignIn(): JSX.Element {
   const { setAuthorization } = useAuth();
@@ -48,10 +48,10 @@ export default function SignIn(): JSX.Element {
   });
 
   return (
-    <div className="box-center">
-      <div className="box-center-form">
+    <div className={styles['box-center']}>
+      <div className={styles['box-center-form']}>
         <Row className="no-gutters w-100">
-          <Col className="text-center rounded bg-white p-3">
+          <Col className="text-center rounded bg-white p-4">
             <h4 className="mb-3">Please sign in</h4>
 
             {errorLogin?.graphQLErrors?.[0].extensions?.category === 'UNAUTHENTICATED' && (

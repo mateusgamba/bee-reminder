@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import Routes from './routes';
 import { ToastContainer } from 'react-toastify';
+import Routes from './routes';
 import { UseAuthProvider } from './hooks/useAuth';
 
 const App: React.FC = () => {

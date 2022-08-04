@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.3.20",
-    "bootstrap": "^4.6.0",
+    "bootstrap": "^5.2.0",
     "date-fns": "^2.27.0",
     "graphql": "^15.5.0",
     "js-cookie": "^3.0.1",
@@ -15,7 +15,8 @@
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
     "react-toastify": "^7.0.4",
-    "reactstrap": "^8.9.0"
+    "reactstrap": "^9.1.2",
+    "sass": "^1.54.2"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.4",
