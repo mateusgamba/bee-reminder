@@ -2,18 +2,20 @@ import React, { useMemo } from 'react';
 import { Row, Col, Button, FormFeedback, FormGroup, Label } from 'reactstrap';
 import { useMutation, ApolloError } from '@apollo/client';
 import { toast } from 'react-toastify';
-import { Link, useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../hooks/useAuth';
 import CustomInput from '../../components/CustomInput';
 import { RegisterUser } from '../../ts';
 import { CREATE_USER_GQL } from '../../graphql/User';
 import styles from './styles.module.scss';
+import LinkTo from '../../components/LinkTo';
+import useNavigateTo from '../../components/NavigateTo';
 
 export default function SignUp(): JSX.Element {
   const { setAuthorization } = useAuth();
+  const { navigateTo } = useNavigateTo();
   const methods = useForm<RegisterUser>();
-  const history = useHistory();
+
   const {
     handleSubmit,
     register,
@@ -25,7 +27,7 @@ export default function SignUp(): JSX.Element {
     onCompleted: (response) => {
       toast.success('Your account was created successfully.');
       setAuthorization(response.createUser);
-      history.push('/');
+      navigateTo('/');
     },
     onError: (error: ApolloError) => {
       if (errorSignup?.graphQLErrors?.[0].extensions?.category === 'validation') {
@@ -122,10 +124,10 @@ export default function SignUp(): JSX.Element {
             <hr />
             <div className="d-flex justify-content-between">
               <div>
-                <Link to="/">Home</Link>
+                <LinkTo to="/">Home</LinkTo>
               </div>
               <div>
-                Already got an account? <Link to="/sign-in">Sign in</Link>
+                Already got an account? <LinkTo to="/sign-in">Sign in</LinkTo>
               </div>
             </div>
           </Col>

@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import { Row, Col, Button, FormGroup, FormFeedback } from 'reactstrap';
-import { Link, useHistory } from 'react-router-dom';
 import { ApolloError, useMutation } from '@apollo/client';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../hooks/useAuth';
@@ -8,11 +7,12 @@ import { LOGIN_GQL } from '../../graphql/Auth';
 import CustomInput from '../../components/CustomInput';
 import { LoginInput } from '../../ts';
 import styles from './styles.module.scss';
+import LinkTo from '../../components/LinkTo';
+import useNavigateTo from '../../components/NavigateTo';
 
 export default function SignIn(): JSX.Element {
   const { setAuthorization } = useAuth();
-  const history = useHistory();
-
+  const { navigateTo } = useNavigateTo();
   const methods = useForm<LoginInput>();
 
   const {
@@ -25,7 +25,7 @@ export default function SignIn(): JSX.Element {
   const [login, { loading: loginLoading, error: errorLogin }] = useMutation(LOGIN_GQL, {
     onCompleted: (response) => {
       setAuthorization(response.login);
-      history.push('/');
+      navigateTo('/');
     },
     onError: (error: ApolloError) => {
       if (error?.graphQLErrors?.[0]?.extensions?.category === 'validation') {
@@ -89,10 +89,10 @@ export default function SignIn(): JSX.Element {
             <hr />
             <div className="d-flex justify-content-between">
               <div>
-                <Link to="/">Home</Link>
+                <LinkTo to="/">Home</LinkTo>
               </div>
               <div>
-                <Link to="/sign-up">Sign up for an account</Link>
+                <LinkTo to="/sign-up">Sign up for an account</LinkTo>
               </div>
             </div>
           </Col>

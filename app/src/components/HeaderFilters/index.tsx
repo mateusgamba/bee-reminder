@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useHistory, Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Row, Col, Label, Button, Form } from 'reactstrap';
 import queryString from 'query-string';
 import { ReminderFilterInput } from '../../ts';
 import CustomInput from '../CustomInput';
 import useQueryString from '../../hooks/useQueryString';
+import useNavigateTo from '../NavigateTo';
+import LinkTo from '../LinkTo';
 
 export default function HeaderFilters(): JSX.Element {
-  const history = useHistory();
+  const { navigateTo } = useNavigateTo();
   const { pathname } = useLocation();
   const query = useQueryString();
 
@@ -32,7 +34,7 @@ export default function HeaderFilters(): JSX.Element {
   }, [pathname]);
 
   const onSubmit = handleSubmit((date) => {
-    history.push(`/search?${queryString.stringify(date)}`);
+    navigateTo(`/search?${queryString.stringify(date)}`);
   });
 
   return (
@@ -56,9 +58,9 @@ export default function HeaderFilters(): JSX.Element {
         </Col>
         <Col lg="6" md="4" className="d-flex align-items-end pt-3 px-md-0 pt-lg-3">
           <Button className="ms-0 ms-md-3">Search</Button>
-          <Link to="/reminders" className="ms-2 ms-lg-3 btn btn-link">
+          <LinkTo to="/reminders" className="ms-2 ms-lg-3 btn btn-link">
             Clear Filter
-          </Link>
+          </LinkTo>
         </Col>
       </Row>
     </Form>

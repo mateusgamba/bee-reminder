@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import { useHistory, Link } from 'react-router-dom';
 import { Row, Col, Button } from 'reactstrap';
-import CreateReminder from '../CreateReminder';
-import useAuth from '../../../hooks/useAuth';
+import CreateReminder from '../../pages/Admin/CreateReminder';
+import useAuth from '../../hooks/useAuth';
+import useNavigateTo from '../NavigateTo';
+import LinkTo from '../LinkTo';
 
 export default function Header(): JSX.Element {
   const [modal, setModal] = useState<boolean>(false);
+  const { navigateTo } = useNavigateTo();
   const { clearAuthorization } = useAuth();
-
-  const history = useHistory();
 
   const logout = () => {
     clearAuthorization();
-    history.push('/');
+    navigateTo('/');
   };
 
   const toggle = () => setModal(!modal);
@@ -22,9 +22,9 @@ export default function Header(): JSX.Element {
       <div className="w-100">
         <Row className="g-0">
           <Col className="d-flex justify-content-center justify-content-lg-start col-12 col-lg-6 pb-3 py-lg-0">
-            <Link to="/reminders" className="no-link">
+            <LinkTo to="/reminders" className="no-link">
               <h3 className="mb-0">Bee Reminder</h3>
-            </Link>
+            </LinkTo>
           </Col>
           <Col className="d-flex justify-content-center justify-content-lg-end col-12 col-lg-6 align-items-center pb-3 pb-lg-0">
             <div>
