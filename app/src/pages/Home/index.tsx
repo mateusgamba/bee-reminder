@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import LinkTo from '../../components/LinkTo';
 
 export default function Home(): JSX.Element {
   return (
@@ -10,13 +10,13 @@ export default function Home(): JSX.Element {
 
         <p>The easiest way to set reminders.</p>
 
-        <Link to="/sign-in" className="btn btn-access btn-lg">
+        <LinkTo to="/sign-in" className="btn btn-access btn-lg">
           Sign In
-        </Link>
+        </LinkTo>
 
-        <Link to="/sign-up" className="btn btn-access ms-5 btn-lg">
+        <LinkTo to="/sign-up" className="btn btn-access ms-5 btn-lg">
           Sign Up
-        </Link>
+        </LinkTo>
       </Col>
     </Row>
   );
