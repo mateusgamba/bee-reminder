@@ -1,4 +1,3 @@
-import React from 'react';
 import { Row, Col, Button } from 'reactstrap';
 import useReminder from '../../../hooks/useReminder';
 import { Form } from 'reactstrap';

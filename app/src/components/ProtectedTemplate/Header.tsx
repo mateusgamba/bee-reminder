@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Row, Col, Button } from 'reactstrap';
 import CreateReminder from '../../pages/Admin/CreateReminder';
 import useAuth from '../../hooks/useAuth';

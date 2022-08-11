@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Row, Col, Button, FormFeedback, FormGroup, Label } from 'reactstrap';
 import { useMutation, ApolloError } from '@apollo/client';
 import { toast } from 'react-toastify';

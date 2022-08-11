@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { useQuery } from '@apollo/client';
 import { format, add } from 'date-fns';
 import { LIST_REMINDER_GQL } from '../../../graphql/Reminders';
