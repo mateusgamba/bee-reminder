@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Row, Col, Button, Form } from 'reactstrap';
 import { useForm, FormProvider } from 'react-hook-form';
 import { useQuery } from '@apollo/client';

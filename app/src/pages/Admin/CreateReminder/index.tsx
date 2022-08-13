@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, FormFeedback } from 'reactstrap';
 import { useForm } from 'react-hook-form';
 import { useMutation, ApolloError } from '@apollo/client';

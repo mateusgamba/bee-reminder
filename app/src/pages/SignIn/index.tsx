@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Row, Col, Button, FormGroup, FormFeedback } from 'reactstrap';
 import { ApolloError, useMutation } from '@apollo/client';
 import { useForm } from 'react-hook-form';
