@@ -1,27 +1,19 @@
 version: "3.9"
 
 services:
-  api-server:
-    container_name: bee-server
-    image: nginx:1.19.3-alpine
-    ports:
-      - 8000:80
-    volumes:
-      - ./api/:/var/www
-      - ./api/docker/nginx:/etc/nginx/conf.d/
-    networks:
-      - bee-network
-
   api:
     container_name: bee-api
     build:
-      context: .
-      dockerfile: ./api/docker/php/Dockerfile
-    working_dir: /var/www/
+      context: ./api/docker/php
     volumes:
-      - ./api/:/var/www
+      - ./api/:/var/www/html
+      - ./api/docker/apache/default.conf:/etc/apache2/sites-enabled/000-default.conf
+    ports:
+      - 8000:80
     networks:
       - bee-network
+    depends_on:
+      - db
 
   app:
     container_name: bee-app
@@ -35,6 +27,8 @@ services:
     command: yarn start
     networks:
       - bee-network
+    depends_on:
+      - api
 
   db:
     container_name: bee-db

@@ -1,24 +1,21 @@
-FROM php:7.4-fpm
+FROM php:8.1.9-apache
 
-RUN apt-get update && apt-get install -y \
-    git \
-    curl \
-    libpng-dev \
-    libonig-dev \
-    libxml2-dev \
-    libpq-dev \
-    zip \
-    unzip \
+WORKDIR /var/www/html
+
+RUN apt update && apt install -y \
+        libpng-dev \
+        zlib1g-dev \
+        libxml2-dev \
+        libzip-dev \
+        libonig-dev \
+        libpq-dev \
+        zip \
+        curl \
+        unzip \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-install pdo pdo_pgsql mbstring exif pcntl bcmath gd
 
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN useradd -G www-data,root -u 1000 -d /home/docker docker
-RUN mkdir -p /home/docker/.composer && \
-    chown -R docker:docker /home/docker
-
-WORKDIR /var/www
-
-USER docker
+RUN chown -R www-data:www-data /var/www/html && a2enmod rewrite
